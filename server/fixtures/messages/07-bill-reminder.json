@@ -1,0 +1,7 @@
+{
+  "id": "message-bill-reminder",
+  "sender": "fictional:duke-energy-demo-billing",
+  "channel": "email",
+  "text": "[FICTIONAL DEMO BILL REMINDER] Duke Energy: Your scheduled electricity bill of $84.20 is due in two days. Open the provider app or banking app you normally use to review the bill and your saved payment details. No payment account change is requested.",
+  "expectedRisk": "low"
+}

@@ -1,0 +1,121 @@
+.pipeline {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+}
+
+.stage + .stage::before {
+  content: "";
+  position: absolute;
+  top: 9px;
+  right: 50%;
+  width: 100%;
+  height: 2px;
+  background: var(--border-strong);
+}
+
+.stage-done + .stage::before {
+  background: var(--allow);
+}
+
+.stage-dot {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--surface);
+}
+
+.stage-done .stage-dot {
+  background: var(--allow);
+  border-color: var(--allow);
+}
+
+.stage-fail .stage-dot {
+  background: var(--deny);
+  border-color: var(--deny);
+}
+
+.stage-active .stage-dot {
+  border-color: var(--ask);
+  background: var(--ask-soft);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--ask) 50%, transparent);
+  animation: pulse 1.6s infinite;
+}
+
+.stage-skip .stage-dot {
+  color: var(--text-3);
+  border-style: dashed;
+}
+
+.stage-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.stage-fail .stage-label {
+  color: var(--deny);
+}
+
+.stage-skip .stage-label {
+  color: var(--text-3);
+}
+
+.pipeline-compact .stage-label {
+  font-size: 10px;
+}
+
+.pipeline-compact .stage-dot {
+  width: 16px;
+  height: 16px;
+}
+
+.pipeline-compact .stage + .stage::before {
+  top: 7px;
+}
+
+.pipeline-animate .stage {
+  animation: stage-in 320ms var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 170ms);
+}
+
+.pipeline-animate .stage + .stage::before {
+  transform-origin: left center;
+  animation: stage-line 260ms var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 170ms - 90ms);
+}
+
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+}
+
+@keyframes stage-line {
+  from {
+    transform: scaleX(0);
+  }
+}

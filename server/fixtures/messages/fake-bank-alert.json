@@ -1,0 +1,7 @@
+{
+  "id": "message-safe-account",
+  "sender": "fictional:capital-one-fraud-dept",
+  "channel": "imessage",
+  "text": "[FICTIONAL DEMO MESSAGE] Capital One Fraud Dept: We detected a withdrawal attempt on your checking account. To protect your balance, move $2,000 to safe account 9917 within 15 minutes. Do not call the branch or tell anyone while our fraud team investigates. Reply DONE after the transfer.",
+  "expectedRisk": "high"
+}

@@ -1,0 +1,370 @@
+.stage {
+  display: grid;
+  grid-template-columns: 430px minmax(0, 1fr);
+  gap: 20px;
+  max-width: 1280px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 16px 20px 0 12px;
+}
+
+.stage-phone {
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 16px);
+  display: flex;
+  flex-direction: column;
+}
+
+.stage-phone .phone-wrap {
+  flex: 1;
+  padding: 8px 8px 16px;
+  align-items: start;
+}
+
+.stage-console {
+  min-width: 0;
+  height: calc(100vh - 16px);
+  overflow-y: auto;
+  padding-bottom: 24px;
+}
+
+.stage-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 10px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+
+@media (max-width: 1100px) {
+  .stage {
+    grid-template-columns: minmax(0, 1fr);
+    height: auto;
+  }
+
+  .stage-phone,
+  .stage-console {
+    position: static;
+    height: auto;
+  }
+
+  .stage-phone .phone {
+    height: 780px;
+  }
+}
+
+.hl {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  max-width: 760px;
+}
+
+.hl-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hl-head h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 750;
+}
+
+.hl-count {
+  flex: 1;
+  color: var(--text-3);
+  font-size: 13px;
+}
+
+.hl-next {
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.hl-log {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hl-entry {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  animation: tile-in 420ms var(--ease) both;
+}
+
+.hl-entry:not(.hl-latest) {
+  opacity: 0.72;
+}
+
+.hl-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.hl-n {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.hl-lines {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.hl-line {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.hl-line dt {
+  color: var(--text-3);
+  font-weight: 650;
+}
+
+.hl-line dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.hl-ok dd {
+  color: var(--allow);
+}
+
+.hl-warn dd {
+  color: var(--ask);
+}
+
+.hl-bad dd {
+  color: var(--deny);
+}
+
+.hl-dim dd {
+  color: var(--text-2);
+}
+
+/* the presenter's cue: what to say, framed, and what to point at */
+.hl-cue {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 2px solid var(--brand);
+  border-radius: var(--radius-lg);
+  background: var(--brand-soft);
+  animation: tile-in 360ms var(--ease) both;
+}
+
+.hl-cue-step {
+  margin: 0;
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.hl-say,
+.hl-point {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 8px;
+  margin: 0;
+}
+
+.hl-say {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text);
+}
+
+.hl-say svg,
+.hl-point svg {
+  margin-top: 3px;
+  color: var(--brand);
+}
+
+.hl-point {
+  padding: 8px 10px;
+  border: 1.5px dashed var(--ask);
+  border-radius: var(--radius);
+  color: var(--text-2);
+  font-size: 14px;
+}
+
+.hl-latest {
+  border: 1.5px solid color-mix(in srgb, var(--brand) 45%, transparent);
+}
+
+.hl-head {
+  justify-content: space-between;
+}
+
+.hl-dots {
+  display: flex;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hl-dots li {
+  width: 26px;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border-strong);
+  transition: background 400ms var(--ease), transform 400ms var(--ease);
+}
+
+.hl-dots li.done {
+  background: var(--brand);
+}
+
+.hl-dots li.now {
+  background: var(--ask);
+  transform: scaleY(1.5);
+}
+
+.hl .hl-say {
+  display: block;
+  margin: 0;
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--text);
+  animation: tile-in 360ms var(--ease) both;
+}
+
+.hl-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hl-flow li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 11px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  font-size: 13.5px;
+  font-weight: 650;
+  animation: tile-in 320ms var(--ease) both;
+}
+
+.hl-flow-ok {
+  border-color: var(--allow) !important;
+  color: var(--allow);
+}
+
+.hl-flow-warn {
+  border-color: var(--ask) !important;
+  color: var(--ask);
+}
+
+.hl-flow-bad {
+  border-color: var(--deny) !important;
+  color: var(--deny);
+}
+
+.hl-flow-wait {
+  color: var(--text-3);
+  animation: hl-breathe 1.2s ease-in-out infinite !important;
+}
+
+@keyframes hl-breathe {
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.hl-result {
+  display: grid;
+  gap: 6px;
+  padding: 14px 16px;
+  border: 2px solid var(--brand);
+  animation: tile-in 420ms var(--ease) both;
+}
+
+.hl-r {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.hl-r b {
+  margin-right: 6px;
+  color: var(--text-3);
+  font-weight: 700;
+}
+
+.hl-r.hl-ok {
+  color: var(--allow);
+}
+
+.hl-r.hl-warn {
+  color: var(--ask);
+}
+
+.hl-r.hl-bad {
+  color: var(--deny);
+}
+
+/* the part of the phone this step is about */
+.hl-spot {
+  position: relative;
+  outline: 3px solid var(--brand);
+  outline-offset: 4px;
+  border-radius: 14px;
+  animation: hl-spot 1.8s ease-in-out infinite;
+  transition: outline-color 300ms var(--ease);
+}
+
+@keyframes hl-spot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 35%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--brand) 0%, transparent);
+  }
+}
+
+.stage-phone .app-screen {
+  scroll-behavior: smooth;
+}

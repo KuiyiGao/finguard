@@ -1,0 +1,83 @@
+{
+  "conventions": "Independent Decimal oracle: solve discounted payment cashflows by bisection.\nUSD, nominal APR/12, end-of-month payments; refinance fee paid up front.\nDisplayed payment rounds to cents before displayed totals, matching stated UI convention.\nFee drag uses annual gross return less expense ratio; no flows, tax or other fees.\n",
+  "loans": [
+    {
+      "principal": 18400,
+      "apr": 0.099,
+      "months": 48,
+      "payment": 465.79
+    },
+    {
+      "principal": 22000,
+      "apr": 0.055,
+      "months": 120,
+      "payment": 238.76
+    },
+    {
+      "principal": 1200,
+      "apr": 0,
+      "months": 12,
+      "payment": 100.0
+    }
+  ],
+  "refinance": [
+    {
+      "loan": {
+        "balance": 18400,
+        "apr": 0.099,
+        "monthsLeft": 48
+      },
+      "offer": {
+        "apr": 0.064,
+        "months": 48,
+        "fee": 150
+      },
+      "expected": {
+        "currentPayment": 465.79,
+        "newPayment": 435.51,
+        "monthlySaving": 30.28,
+        "currentInterest": 3957.92,
+        "newInterest": 2504.48,
+        "fee": 150,
+        "currentTotal": 22357.92,
+        "newTotal": 21054.48,
+        "netSaving": 1303.44,
+        "breakEvenMonth": 5
+      }
+    },
+    {
+      "loan": {
+        "balance": 1200,
+        "apr": 0,
+        "monthsLeft": 12
+      },
+      "offer": {
+        "apr": 0,
+        "months": 12,
+        "fee": 150
+      },
+      "expected": {
+        "currentPayment": 100.0,
+        "newPayment": 100.0,
+        "monthlySaving": 0.0,
+        "currentInterest": 0.0,
+        "newInterest": 0.0,
+        "fee": 150,
+        "currentTotal": 1200.0,
+        "newTotal": 1350.0,
+        "netSaving": -150.0,
+        "breakEvenMonth": null
+      }
+    }
+  ],
+  "feeDrag": {
+    "balance": 12480,
+    "grossReturn": 0.06,
+    "heldRatio": 0.0062,
+    "indexRatio": 0.0004,
+    "years": 20,
+    "heldFinal": 35594.14,
+    "indexFinal": 39724.06,
+    "drag": 4129.92
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "id": "message-grandchild-emergency",
+  "sender": "fictional:person-claiming-to-be-grandchild",
+  "channel": "imessage",
+  "text": "[FICTIONAL DEMO MESSAGE] Grandma, it's Alex. My phone broke, so I'm using a friend's account. I had an accident and need $900 right now for the lawyer before they let me go. Please don't tell Mom or Dad. Send it to the payment account I give you and please hurry.",
+  "expectedRisk": "high"
+}

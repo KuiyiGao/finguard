@@ -1,0 +1,7 @@
+{
+  "id": "message-rent-reminder",
+  "sender": "fictional:cedar-court-property-office",
+  "channel": "imessage",
+  "text": "[FICTIONAL DEMO MESSAGE] Hi Alex, a reminder that your $1,250 rent is due on the first of next month. Your usual lease terms and payment method are unchanged. You can review the balance in the resident portal you normally use. Thanks, Cedar Court property office.",
+  "expectedRisk": "low"
+}

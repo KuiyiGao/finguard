@@ -1,0 +1,878 @@
+openapi: 3.1.0
+info:
+  title: FinGuard gateway
+  version: 0.1.0
+  description: |
+    REST + Server-Sent Events API of the FinGuard server (release/server, default port 8787).
+    Every money action goes through SkillGate: review, approval bound to the exact action,
+    then a receipt. Every step is an event in a hash-chained audit trace.
+
+    Demo roles: send `X-Demo-Role: customer` (default) or `operator`, or `?role=` where a
+    header cannot be set (EventSource). This is a mock role for the demo, not authentication.
+    Operators never see approval codes and cannot approve, act or change policy.
+servers:
+  - url: http://localhost:8787
+tags:
+  - name: system
+  - name: customer
+  - name: operations
+paths:
+  /api/health:
+    get:
+      tags: [system]
+      summary: Liveness, integration modes, stubs still in place, trace status
+      responses:
+        "200":
+          description: Server is up
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  version: { type: string }
+                  modes: { type: object, additionalProperties: { type: string } }
+                  stubs: { type: array, items: { type: string } }
+                  trace:
+                    type: object
+                    properties: { events: { type: integer }, verified: { type: boolean } }
+                  keys:
+                    type: object
+                    description: Whether each API key is set (never the value)
+                    properties: { anthropic: { type: boolean }, gemini: { type: boolean } }
+  /api/state:
+    get:
+      tags: [customer, operations]
+      summary: Snapshot for the app or console
+      parameters: [{ $ref: "#/components/parameters/Role" }]
+      responses:
+        "200":
+          description: Policy, consent, pending approvals, recent receipts, today's total, trace head
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  role: { type: string, enum: [customer, operator] }
+                  policy: { $ref: "#/components/schemas/DelegationPolicy" }
+                  policyHash: { type: string }
+                  consent: { oneOf: [{ $ref: "#/components/schemas/ConsentRecord" }, { type: "null" }] }
+                  needsConsent: { type: boolean }
+                  approvals: { type: array, items: { $ref: "#/components/schemas/ApprovalRequest" } }
+                  receipts: { type: array, items: { $ref: "#/components/schemas/AuthorizationReceipt" } }
+                  spentToday: { type: number }
+                  trace: { type: object, description: "events, head hash; operators also get verify" }
+  /api/events:
+    get:
+      tags: [customer, operations]
+      summary: Live trace events (SSE). Replays history first.
+      description: |
+        Each message is `id: <seq>` and `data: <TraceEvent JSON>`. Reconnects resume after
+        `Last-Event-ID`; `?after=<seq>` does the same on first connect. After a demo reset the
+        server sends `event: reset` and closes; clients clear their state and reconnect. Customers do not get
+        skill_loaded, eval_result or scenario_started. Approval codes are never
+        in the stream.
+      parameters:
+        - $ref: "#/components/parameters/Role"
+        - { name: role, in: query, schema: { type: string, enum: [customer, operator] } }
+        - { name: after, in: query, schema: { type: integer, minimum: 0 } }
+      responses:
+        "200":
+          description: text/event-stream
+          content:
+            text/event-stream:
+              schema: { type: string }
+  /api/chat:
+    post:
+      tags: [customer]
+      summary: One conversation turn with FinGuard (optionally with a forwarded message to check)
+      description: |
+        The agent (rules in replay mode, Gemini later) acts only through SkillGate. Returns 200
+        with the replies when the turn finishes, or 202 as soon as it waits for the user's
+        approval; later replies arrive on /api/events as agent_reply events.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                text: { type: string, maxLength: 4000 }
+                turnId: { type: string }
+                inbound:
+                  type: object
+                  required: [text]
+                  description: Content the user forwarded or shared. Never trusted as a source of money values.
+                  properties: { id: { type: string }, text: { type: string } }
+      responses:
+        "200":
+          description: Turn finished
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  turnId: { type: string }
+                  status: { const: done }
+                  replies: { type: array, items: { type: string } }
+        "202":
+          description: Waiting for the user's approval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  turnId: { type: string }
+                  status: { const: awaiting_approval }
+                  approval: { $ref: "#/components/schemas/ApprovalRequest" }
+        "400": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+  /api/actions:
+    post:
+      tags: [customer]
+      summary: Run a tool the user tapped in the app (e.g. a one-tap savings action)
+      description: |
+        The tapped values count as the user's own words, except values a document turn copied
+        from a shared invoice (its account and amount): when the tap is that proposed action, or
+        sends to that account, they keep the invoice as their only origin and the invoice is shared
+        with SkillGate again if it has left its context, so the provenance rule and ScamShield judge
+        them as untrusted text. SkillGate still applies every rule.
+        Returns 200 with the outcome when no approval is needed, or 202 with the pending
+        approval (including its code, for the customer) when it is; the action then runs
+        when the approval is answered, and its receipt arrives on /api/events.
+        It runs as an action turn (src/agent/core.ts): turn_started, the orchestrator routes by
+        tool (subscriptions.* -> savings; bank.move_own, bank.pay_bill, bank.transfer ->
+        payments), the specialist proposes the call, SkillGate decides, the evaluator writes
+        `reply`. Responses add `agent` and `reply`; any other tool returns status `refused`
+        (it never reaches SkillGate).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [tool]
+              properties:
+                tool: { type: string, example: bank.move_own }
+                args: { type: object, example: { from_account: acct-checking, to_account: acct-savings, amount: 300 } }
+                turnId: { type: string }
+                source: { type: string, enum: [app, desk, imessage], description: "turn_started.source (default app)" }
+      responses:
+        "200":
+          description: Final outcome
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Outcome" }
+        "202":
+          description: Waiting for the user's approval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { const: awaiting_approval }
+                  callId: { type: string }
+                  turnId: { type: string }
+                  approval: { $ref: "#/components/schemas/ApprovalRequest" }
+        "400": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+  /api/approvals/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string } }
+    get:
+      tags: [customer, operations]
+      summary: One approval request (operators do not see the code)
+      responses:
+        "200":
+          description: The request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { approval: { $ref: "#/components/schemas/ApprovalRequest" } }
+        "404": { $ref: "#/components/responses/Error" }
+    post:
+      tags: [customer]
+      summary: Approve (with the 4-digit code) or decline
+      description: Three wrong codes deny the request. Declining needs no code. No answer before expiresAt counts as a denial.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [approve]
+              properties:
+                approve: { type: boolean }
+                code: { type: string, pattern: "^[0-9]{4}$" }
+      responses:
+        "200":
+          description: Settled
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { approval: { $ref: "#/components/schemas/ApprovalRequest" } }
+        "400": { description: "Wrong code (problem: wrong_code)", $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+        "409": { description: "Already settled, or locked after wrong codes", $ref: "#/components/responses/Error" }
+  /api/policy:
+    get:
+      tags: [customer, operations]
+      summary: Current delegation policy, its hash, the consent statement and consent status
+      responses:
+        "200":
+          description: Policy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policy: { $ref: "#/components/schemas/DelegationPolicy" }
+                  hash: { type: string }
+                  statement: { type: string }
+                  consent: { oneOf: [{ $ref: "#/components/schemas/ConsentRecord" }, { type: "null" }] }
+                  versions: { type: integer }
+    post:
+      tags: [customer]
+      summary: Change the policy (creates a new version that needs fresh consent)
+      description: Changeable fields are grants, savedPayees, newPayeeCoolingOffMinutes, dailyLimit, trustedContact and paused. New payees get an id and addedAt.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [changes]
+              properties:
+                changes: { type: object, example: { paused: true } }
+                note: { type: string }
+      responses:
+        "200":
+          description: New version
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  policy: { $ref: "#/components/schemas/DelegationPolicy" }
+                  hash: { type: string }
+                  statement: { type: string }
+                  needsConsent: { type: boolean }
+        "400": { description: "Invalid policy (problems lists each one)", $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+  /api/consent:
+    post:
+      tags: [customer]
+      summary: Agree to the current policy version (the liability record)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [policyVersion]
+              properties:
+                policyVersion: { type: integer, description: Must equal the current version the user reviewed }
+                channel: { type: string, enum: [app, imessage], default: app }
+      responses:
+        "200":
+          description: Consent recorded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { consent: { $ref: "#/components/schemas/ConsentRecord" } }
+        "403": { $ref: "#/components/responses/Error" }
+        "409": { description: "policyVersion is not the current version", $ref: "#/components/responses/Error" }
+  /api/accounts:
+    get:
+      tags: [customer, operations]
+      summary: Balances for the app's home screen (read directly, not an agent action)
+      responses:
+        "200":
+          description: Accounts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accounts: { type: array, items: { type: object, properties: { id: { type: string }, nickname: { type: string }, last4: { type: string }, balance: { type: number } } } }
+                  stub: { type: boolean }
+  /api/savings:
+    get:
+      tags: [customer, operations]
+      summary: Savings report (demo data until the savings engine is connected)
+      responses:
+        "200":
+          description: Report
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: { report: { type: object, description: SavingsReport in types.ts } }
+  /api/findings:
+    get:
+      tags: [customer, operations]
+      summary: The unified panel - every card as a Finding, plus one summary per money area
+      description: |
+        Savings ideas, the latest nudges, the cash-flow check, recent ScamShield checks and the
+        SIMULATED scenario cards (investments, loans, contracts) as Findings, with one summary
+        per area (everyday, bills, subscriptions, investments, loans, contracts, protection) and
+        every public source the cards cite. Every number is computed in code; scenario cards
+        are always `simulated: true`, and in NESSIE_MODE=mock every card is. The view is the
+        latest household review turn (src/agent/core.ts): savings, guardian, payments and
+        advisor each read their scope through SkillGate, and every card carries `turnId` (that
+        turn, also returned at the top level) and `agent` (the specialist). Served from memory
+        until the trace changes; then a new review turn builds it.
+      responses:
+        "200":
+          description: Panel
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/FindingsView" }
+  /api/demo/scenes:
+    get:
+      tags: [operations]
+      summary: The demo scenes
+      responses:
+        "200":
+          description: Scenes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  scenes: { type: array, items: { type: object, properties: { id: { type: string }, title: { type: string }, summary: { type: string } } } }
+  /api/demo/personas:
+    get:
+      tags: [operations]
+      summary: The simulated households the demo can start over with (all data fictional)
+      description: >-
+        maya is the default demo household. POST /api/demo/reset with `persona` switches to another.
+      responses:
+        "200":
+          description: Personas, and the one loaded now
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  personas:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: string, enum: [maya, grace, diego-ana, sam, priya] }
+                        name: { type: string }
+                        story: { type: string, description: One line }
+                        simulated: { type: boolean, enum: [true] }
+                  current: { type: string, description: The persona loaded now }
+  /api/demo/reset:
+    post:
+      tags: [operations]
+      summary: Start the demo over (archives the trace; open event streams get a reset event)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                consent: { type: boolean, description: Also record consent to the persona's policy (rehearsals) }
+                persona:
+                  type: string
+                  enum: [maya, grace, diego-ana, sam, priya]
+                  description: The simulated household to start with (GET /api/demo/personas). Omitted means maya, the default, whatever was loaded before.
+      responses:
+        "200":
+          description: Reset
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  persona: { type: string }
+                  policyVersion: { type: integer }
+                  consent: { type: object, nullable: true }
+        "400": { $ref: "#/components/responses/Error" }
+        "403": { $ref: "#/components/responses/Error" }
+        "409": { description: "A persona other than maya needs NESSIE_MODE=mock" }
+  /api/demo/scenes/{id}:
+    parameters:
+      - { name: id, in: path, required: true, schema: { type: string, enum: [save, bill, scam, enterprise] } }
+    post:
+      tags: [operations]
+      summary: Play a scene as if the customer typed each step (does not wait for approvals)
+      responses:
+        "202": { description: Started }
+        "403": { $ref: "#/components/responses/Error" }
+        "404": { $ref: "#/components/responses/Error" }
+  /api/eval:
+    get:
+      tags: [operations]
+      summary: Last SkillGate eval result (null until `npm run eval` has run)
+      responses:
+        "200":
+          description: Result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    oneOf:
+                      - type: "null"
+                      - type: object
+                        properties:
+                          ranAt: { type: string, format: date-time }
+                          total: { type: integer }
+                          passed: { type: integer }
+                          byCategory: { type: object, additionalProperties: { type: object, properties: { total: { type: integer }, passed: { type: integer } } } }
+                          cases: { type: array, items: { type: object, properties: { id: { type: string }, category: { type: string }, expected: { type: string }, actual: { type: string }, ok: { type: boolean } } } }
+  /api/audit/verify:
+    get:
+      tags: [operations]
+      summary: Recompute the hash chain (operators only)
+      responses:
+        "200":
+          description: Result; badSeq is the first event that fails
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok: { type: boolean }
+                  count: { type: integer }
+                  badSeq: { type: integer }
+                  reason: { type: string }
+                  head: { type: [string, "null"] }
+        "403": { $ref: "#/components/responses/Error" }
+  /api/tools:
+    get:
+      tags: [system]
+      summary: Tool specs (MCP-compatible plus effect, capability and money fields)
+      responses:
+        "200":
+          description: Tools
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tools: { type: array, items: { type: object } }
+  /api/research/skills:
+    get:
+      tags: [system]
+      summary: The research skill pack's manifest (capability research.read only), its host allowlist and its five read-only tools
+      responses:
+        "200":
+          description: Pack
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  manifest: { type: object, description: "SkillManifest: name, description, publisher, capabilities" }
+                  sha256: { type: string }
+                  hosts: { type: array, items: { type: string } }
+                  summary: { type: string }
+                  tools: { type: array, items: { type: object } }
+  /api/research/brief:
+    post:
+      tags: [customer]
+      summary: Research brief on a company, ticker or bank from public data (SEC, Treasury, FDIC, CFPB). Each skill runs through SkillGate in one turn. Facts and sources only, no advice.
+      description: Customer and operator. Without SEC_USER_AGENT the SEC skills answer from a cached sample (AAPL, MSFT) labeled "cached sample, not live".
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [query]
+              properties:
+                query: { type: string, maxLength: 200, example: "research Apple" }
+      responses:
+        "200":
+          description: Brief
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  turnId: { type: string }
+                  query: { type: string }
+                  company: { oneOf: [{ type: "null" }, { type: object }] }
+                  findings: { type: array, items: { type: object, description: "Finding (area investments, from research)" } }
+                  steps:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        skill: { type: string }
+                        status: { type: string, enum: [ok, cached_sample, failed, denied, skipped] }
+                        ms: { type: number }
+                        source: { type: string }
+                        detail: { type: string }
+                  disclaimer: { type: string }
+        "400": { $ref: "#/components/responses/Error" }
+  /api/documents/review:
+    post:
+      tags: [customer]
+      summary: Review a shared document (contract, bank statement or invoice) in one document turn; returns one evidence card with highlights, numbers computed in code, a cited source and at most one proposed action. Not legal or financial advice.
+      description: |
+        A document turn (src/agent/core.ts, src/documents): turn_started (kind document), the
+        orchestrator routes by kind (given, or found by keyword rules and named in the evidence as
+        `calc:documents/kind`) to one read-only specialist, which runs `documents.annotate` and the
+        household reads it needs through SkillGate, then the evaluator checks the reply.
+
+        - contract -> advisor (`household.subscriptions`): six clause kinds, the renewal cost, and
+          a proposed `subscriptions.cancel` when the contract belongs to an active subscription.
+        - statement -> payments (`household.accounts`, `household.bills`): fee lines and the low
+          balance marked, fees per statement and per year computed; a proposed `bank.move_own`
+          from savings to checking only when checking is short of the next unpaid bill plus the
+          policy buffer, sized from those trusted records (never from the document).
+        - invoice -> guardian (`household.payees`): payee, account, amount due, due date and
+          red-flag sentences marked; line items added up; compared with the payee on file;
+          ScamShield's message check (`scam_assessed`); the action it asks for ("pay as written",
+          `bank.transfer`). The invoice text is shared with SkillGate as untrusted content
+          (`inbound_shared`), and the account and amount it supplies never count as the customer's
+          words, even when the action is tapped (see POST /api/actions).
+
+        Nothing runs in this turn: a proposed action reaches SkillGate only when the customer taps
+        it. Areas: contract -> contracts, statement -> everyday, invoice -> protection. `simulated`
+        is true for the samples and whenever the simulated household's records were used.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                text: { type: string, maxLength: 20000 }
+                kind: { type: string, enum: [contract, statement, invoice], description: "left out: classified by keyword rules" }
+                name: { type: string, description: "shown in turn_started.summary" }
+                source: { type: string, enum: [desk, app, imessage], description: "turn_started.source (default desk)" }
+      responses:
+        "200":
+          description: Review
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  finding: { $ref: "#/components/schemas/Finding" }
+                  turnId: { type: string }
+                  reply: { type: string, description: "the specialist's reply, checked by the evaluator" }
+                  kind: { type: string, enum: [contract, statement, invoice] }
+                  marks:
+                    type: array
+                    description: The highlighted passages in reading order; the same spans as the card's clauses viz.
+                    items:
+                      type: object
+                      required: [label, tone, start, end, quote]
+                      properties:
+                        label: { type: string, example: "Overdraft fee: $20.00" }
+                        tone: { type: string, enum: [ok, info, warn, bad, muted] }
+                        start: { type: integer }
+                        end: { type: integer, description: "text.slice(start, end) === quote" }
+                        quote: { type: string }
+                        value: { type: number, description: "USD written in the marked words" }
+                        date: { type: string, format: date, description: "a date written in the marked words" }
+        "400": { $ref: "#/components/responses/Error" }
+  /api/documents/samples:
+    get:
+      tags: [customer]
+      summary: The three fictional sample documents the desk offers (fixtures/documents), one per kind
+      responses:
+        "200":
+          description: Samples (a JSON array)
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  required: [id, kind, name, text, fictional]
+                  properties:
+                    id: { type: string, example: october-statement }
+                    kind: { type: string, enum: [contract, statement, invoice] }
+                    name: { type: string, example: October checking statement }
+                    text: { type: string, description: "line endings \\n, no trailing newline; mark offsets index into it" }
+                    fictional: { const: true }
+  /api/contracts/review:
+    post:
+      tags: [customer]
+      summary: Alias of POST /api/documents/review with kind contract, keeping the response it has always returned (clauses instead of kind and marks). Not legal advice.
+      description: |
+        A document turn (src/agent/core.ts): the advisor runs the read-only `documents.annotate`
+        tool and reads the subscriptions on file; the card adds the renewal cost computed in code
+        and, when the contract belongs to an active subscription, a proposed cancel (SkillGate
+        still decides). The card carries `turnId` and `agent: advisor`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [text]
+              properties:
+                text: { type: string, maxLength: 20000 }
+                name: { type: string, description: "shown in turn_started.summary" }
+                source: { type: string, enum: [desk, app, imessage], description: "turn_started.source (default desk)" }
+      responses:
+        "200":
+          description: Review
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  finding: { type: object, description: "Finding (area contracts)" }
+                  turnId: { type: string }
+                  reply: { type: string, description: "the advisor's reply, checked by the evaluator" }
+                  clauses: { type: array, items: { type: object } }
+        "400": { $ref: "#/components/responses/Error" }
+  /api/agent/review:
+    post:
+      tags: [customer, operations]
+      summary: Run one household review turn now; the panel (GET /api/findings) is its view
+      responses:
+        "200":
+          description: The review
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  turnId: { type: string }
+                  reply: { type: string, example: "FinGuard reviewed your money: 16 findings in 7 areas." }
+                  findings: { type: integer }
+                  areas: { type: integer }
+                  view: { $ref: "#/components/schemas/FindingsView" }
+  /api/db/stats:
+    get:
+      tags: [operations]
+      summary: SQLite read model of the trace (operators only); a projection rebuilt from the trace on start and reset
+      responses:
+        "200":
+          description: Counts and recent receipts
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stats:
+                    type: object
+                    properties:
+                      events: { type: object, properties: { total: { type: integer }, byType: { type: object, additionalProperties: { type: integer } } } }
+                      decisions: { type: object, properties: { total: { type: integer }, byVerdict: { type: object, additionalProperties: { type: integer } } } }
+                      approvals: { type: object, properties: { total: { type: integer }, byStatus: { type: object, additionalProperties: { type: integer } } } }
+                      receiptsToday: { type: object, properties: { count: { type: integer }, totalAmount: { type: number } } }
+                      kbChunks: { type: object, properties: { total: { type: integer }, byModel: { type: object, additionalProperties: { type: integer } } } }
+                      db: { type: object, properties: { file: { type: string }, sizeBytes: { type: integer }, rebuildMs: { type: number }, rebuiltEvents: { type: integer }, projectionErrors: { type: integer } } }
+                  recentReceipts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id: { type: string }
+                        callId: { type: string }
+                        tool: { type: [string, "null"] }
+                        amount: { type: [number, "null"] }
+                        authorizedBy: { type: string, description: "approval:<id> or standing_instruction:v<policy version>" }
+                        ts: { type: string, format: date-time }
+        "403": { $ref: "#/components/responses/Error" }
+  /api/metrics:
+    get:
+      tags: [operations]
+      summary: In-process counters and latency summaries (operators only)
+      responses:
+        "200":
+          description: Snapshot; latencies are p50/p95/max/mean over the last 500 samples per series
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  since: { type: string, format: date-time }
+                  uptimeS: { type: integer }
+                  counters: { type: object, additionalProperties: { type: number } }
+                  latencyMs:
+                    type: object
+                    description: "Series such as gate.check, tool.run:<tool>, agent.turn, llm.request, rag.search, http:<METHOD /route>"
+                    additionalProperties:
+                      type: object
+                      properties: { count: { type: integer }, window: { type: integer }, p50: { type: number }, p95: { type: number }, max: { type: number }, mean: { type: number } }
+                  agent:
+                    type: object
+                    properties:
+                      name: { type: string }
+                      mode: { type: string, enum: [replay, claude, gemini] }
+                      model: { type: string }
+                      recentFallbacks: { type: array, items: { type: object, properties: { at: { type: string }, turnId: { type: string }, reason: { type: string } } } }
+        "403": { $ref: "#/components/responses/Error" }
+components:
+  parameters:
+    Role:
+      name: X-Demo-Role
+      in: header
+      schema: { type: string, enum: [customer, operator], default: customer }
+  responses:
+    Error:
+      description: Error
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [error]
+            properties:
+              error: { type: string }
+              problem: { type: string }
+              problems: { type: array, items: { type: string } }
+  schemas:
+    DelegationPolicy:
+      type: object
+      description: See DelegationPolicy in release/server/src/types.ts
+      properties:
+        version: { type: integer }
+        grants:
+          type: array
+          items:
+            type: object
+            properties:
+              capability: { type: string, enum: [bank.read, transfers.own, bills.pay, transfers.external] }
+              maxAmount: { type: number }
+              approval: { type: string, enum: [never, always, over_limit] }
+        ownAccounts: { type: array, items: { type: string } }
+        savedPayees:
+          type: array
+          items:
+            type: object
+            properties: { id: { type: string }, name: { type: string }, account: { type: string }, addedAt: { type: string, format: date-time } }
+        newPayeeCoolingOffMinutes: { type: number }
+        dailyLimit: { type: number }
+        trustedContact: { type: object, properties: { name: { type: string }, handle: { type: string } } }
+        paused: { type: boolean }
+    ConsentRecord:
+      type: object
+      properties:
+        id: { type: string }
+        policyVersion: { type: integer }
+        policyHash: { type: string }
+        statement: { type: string }
+        acceptedAt: { type: string, format: date-time }
+        channel: { type: string, enum: [app, imessage] }
+    ApprovalRequest:
+      type: object
+      properties:
+        id: { type: string }
+        callId: { type: string }
+        actionHash: { type: string, description: sha256 of tool + canonical args; the approval covers only this action }
+        code: { type: string, description: 4 digits; customer only }
+        summary: { type: string }
+        channel: { type: string, enum: [app, imessage] }
+        expiresAt: { type: string, format: date-time }
+        status: { type: string, enum: [pending, approved, denied, expired] }
+    Decision:
+      type: object
+      description: See Decision in types.ts. verdict is the strictest of the reasons.
+      properties:
+        callId: { type: string }
+        verdict: { type: string, enum: [allow, ask, deny] }
+        reasons:
+          type: array
+          items:
+            type: object
+            properties:
+              rule: { type: string }
+              verdict: { type: string, enum: [allow, ask, deny] }
+              message: { type: string }
+        provenance: { type: array, items: { type: object } }
+        latencyMs: { type: number }
+    AuthorizationReceipt:
+      type: object
+      description: See AuthorizationReceipt in types.ts
+      properties:
+        id: { type: string }
+        callId: { type: string }
+        actionHash: { type: string }
+        action: { type: string }
+        values: { type: array, items: { type: object } }
+        authorizedBy: { type: object }
+        consentId: { type: string }
+        channel: { type: string, enum: [app, imessage, auto] }
+        executedAt: { type: string, format: date-time }
+        traceSeq: { type: integer }
+    Outcome:
+      type: object
+      properties:
+        callId: { type: string }
+        turnId: { type: string }
+        status: { type: string, enum: [executed, denied, not_approved, blocked, failed] }
+        decision: { $ref: "#/components/schemas/Decision" }
+        approval: { $ref: "#/components/schemas/ApprovalRequest" }
+        receipt: { $ref: "#/components/schemas/AuthorizationReceipt" }
+        result: { description: Tool output when executed }
+        error: { type: string }
+    FindingsView:
+      type: object
+      description: See FindingsView in types.ts
+      required: [generatedAt, areas, findings, references]
+      properties:
+        generatedAt: { type: string, format: date-time }
+        areas:
+          type: array
+          items:
+            type: object
+            required: [area, title, status, headline, findings]
+            properties:
+              area: { type: string, enum: [everyday, bills, subscriptions, investments, loans, contracts, protection] }
+              title: { type: string }
+              status: { type: string, enum: [ok, attention, blocked] }
+              headline: { type: string }
+              amount: { type: object, properties: { label: { type: string }, value: { type: number, description: USD } } }
+              findings: { type: integer }
+        findings: { type: array, items: { $ref: "#/components/schemas/Finding" } }
+        references:
+          type: array
+          items: { type: object, properties: { id: { type: string }, title: { type: string }, url: { type: string, format: uri } } }
+    Finding:
+      type: object
+      description: See Finding in types.ts. One evidence card; actions still run through SkillGate (POST /api/actions).
+      required: [id, area, tone, title, summary, evidence, citations, simulated, from, createdAt]
+      properties:
+        id: { type: string, description: "Stable for the same input, e.g. savings:idle-cash, scenario:loans/auto-refinance" }
+        area: { type: string, enum: [everyday, bills, subscriptions, investments, loans, contracts, protection] }
+        tone: { type: string, enum: [save, info, warn, block] }
+        title: { type: string }
+        summary: { type: string }
+        metric:
+          type: object
+          properties:
+            label: { type: string }
+            value: { type: number }
+            unit: { type: string, enum: [usd, usd_month, usd_year, pct, days, score] }
+        viz: { type: object, description: "Viz in types.ts: bars, compare, gauge, timeline, curve, donut or clauses (spans index into text)" }
+        evidence:
+          type: array
+          items:
+            type: object
+            properties:
+              label: { type: string }
+              origin: { type: string, enum: [bank_record, user, policy, calculation, reference, document, message] }
+              trusted: { type: boolean, description: false for document and message text }
+              source: { type: string }
+              quote: { type: string }
+              value: { type: number }
+              url: { type: string }
+        citations: { type: array, items: { type: object, properties: { docId: { type: string }, title: { type: string }, excerpt: { type: string }, url: { type: string }, score: { type: number } } } }
+        assumptions: { type: string }
+        action: { type: object, properties: { label: { type: string }, tool: { type: string }, args: { type: object } } }
+        ask: { type: string, description: A question the customer can send the agent about this card }
+        simulated: { type: boolean }
+        from: { type: string, enum: [savings, nudge, scam, cash_flow, scenario] }
+        createdAt: { type: string, format: date-time }

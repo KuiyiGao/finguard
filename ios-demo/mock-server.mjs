@@ -1,0 +1,12 @@
+import http from 'node:http';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { loadConfig } from '../server/src/config.ts';
+import { buildServices } from '../server/src/services.ts';
+import { createApp } from '../server/src/gateway/app.ts';
+const dir = path.dirname(fileURLToPath(import.meta.url));
+const config = loadConfig({ PORT: '8799', DATA_DIR: path.join(dir, 'demo-data'), NESSIE_MODE: 'mock', RAG_MODE: 'mock', AGENT_MODE: 'replay', SCAM_LLM: 'off', GATE_LLM: 'off', SPECTRUM_PROVIDER: 'off' });
+const services = buildServices(config);
+const server = http.createServer(createApp(services));
+server.listen(8799, '127.0.0.1', () => console.log('Isolated iOS mock API: http://127.0.0.1:8799'));
+for (const signal of ['SIGINT', 'SIGTERM']) process.on(signal, () => { server.close(); server.closeAllConnections(); });

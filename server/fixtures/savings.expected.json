@@ -1,0 +1,34 @@
+{
+  "conventions": "USD; effective 4% APY; 60 end-of-month deposits; half-up rounding only at display boundaries; no taxes/fees; one-off fees excluded",
+  "monthlyRate": 0.0032737397821988637,
+  "idlePrincipal": 3225.8,
+  "totalMonthly": 86.73,
+  "recommendations": {
+    "subscription-gym": {
+      "monthlySavings": 29.99,
+      "annualSavings": 359.88,
+      "fiveYearValue": 1984.71
+    },
+    "subscription-music": {
+      "monthlySavings": 10.99,
+      "annualSavings": 131.88,
+      "fiveYearValue": 727.31
+    },
+    "internet-plan": {
+      "monthlySavings": 35.0,
+      "annualSavings": 420.0,
+      "fiveYearValue": 2316.27
+    },
+    "idle-cash": {
+      "monthlySavings": 10.75,
+      "annualSavings": 129.03,
+      "fiveYearValue": 711.6
+    },
+    "late-duke-bill": {
+      "monthlySavings": 0,
+      "annualSavings": 0,
+      "fiveYearValue": 0
+    }
+  },
+  "zeroRate60Months": 6000.0
+}

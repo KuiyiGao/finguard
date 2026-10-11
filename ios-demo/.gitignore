@@ -1,0 +1,6 @@
+node_modules/
+www/
+capacitor.config.json
+demo-data/
+*.log
+.DS_Store

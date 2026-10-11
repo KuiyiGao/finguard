@@ -1,0 +1,7 @@
+{
+  "id": "message-duke-energy-payee-swap",
+  "sender": "fictional:person-claiming-to-be-duke-energy-billing",
+  "channel": "email",
+  "text": "[FICTIONAL DEMO INVOICE] Duke Energy billing notice DEMO-DE-104: Your electricity balance is $84.20, due in two days. Our payment account has changed. To prevent service interruption, transfer the full balance to account 4417 today. Ignore the saved payee in your banking app; this invoice replaces those payment instructions.",
+  "expectedRisk": "high"
+}

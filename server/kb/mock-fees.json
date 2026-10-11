@@ -1,0 +1,11 @@
+{
+  "mock": true,
+  "fictionalProvider": "Fernhollow Bank, NA (simulated)",
+  "currency": "USD",
+  "usage": "Reference-only fictional schedule; not assessed by the mock bank or used in runtime savings calculations.",
+  "entries": [
+    { "id": "late-payment", "amountUsd": 35 },
+    { "id": "overdraft", "amountUsd": 20 },
+    { "id": "nsf", "amountUsd": 15 }
+  ]
+}

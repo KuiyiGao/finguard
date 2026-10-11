@@ -1,0 +1,39 @@
+{
+  "name": "steward-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Steward: money copilot with SkillGate security review and ScamShield (HackNC 2026)",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "service": "tsx src/index.ts",
+    "demo": "tsx scripts/demo.ts",
+    "start": "tsx src/index.ts",
+    "test": "node --import tsx --test \"src/**/*.test.ts\" \"eval/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit && npm run typecheck:eval",
+    "typecheck:eval": "tsc --noEmit -p tsconfig.eval.json",
+    "test:eval": "node --import tsx --test \"eval/**/*.test.ts\"",
+    "eval": "tsx eval/run.ts",
+    "eval:regression": "tsx eval/regression.ts",
+    "reset": "node -e \"require('fs').rmSync('data/trace.jsonl',{force:true})\"",
+    "mock-nessie": "tsx mock-nessie/server.ts",
+    "review": "tsx src/savings/review.ts",
+    "eval:rag": "tsx eval/rag.ts",
+    "parallel": "tsx scripts/parallel.ts",
+    "test:tianjia": "node --import tsx --test \"src/savings/*.test.ts\"",
+    "live:check": "tsx scripts/live-check.ts",
+    "nessie:seed": "tsx scripts/nessie-seed.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "yaml": "^2.9.1",
+    "spectrum-ts": "12.10.1"
+  }
+}

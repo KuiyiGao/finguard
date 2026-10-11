@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "paths": { "@contracts": ["./src/types.ts"] }
+  },
+  "include": ["eval/**/*.ts", "src/**/*.ts"]
+}

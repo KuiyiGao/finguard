@@ -1,0 +1,24 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import { fileURLToPath } from 'node:url';
+const root = path.dirname(fileURLToPath(import.meta.url));
+const dist = path.resolve(root, '../web/dist');
+if (!fs.existsSync(path.join(dist, 'index.html'))) throw new Error('Build the web app first');
+const interfaces = os.networkInterfaces();
+const names = Object.keys(interfaces).filter(n => /^en\d+$/.test(n)).sort();
+const address = names.flatMap(n => interfaces[n] ?? []).find(a => a.family === 'IPv4' && !a.internal)?.address;
+// The team's server serves the app and the API on one port (8787); the offline mock preview uses 5190.
+const port = process.env.IOS_DEMO_PORT ?? '8787';
+const requested = process.env.IOS_DEMO_URL ?? (address ? `http://${address}:${port}/app` : undefined);
+if (!requested) throw new Error('Connect to Wi-Fi, or set IOS_DEMO_URL to your Mac address ending in /app');
+const url = new URL(requested);
+if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password || url.search || url.hash || url.pathname !== '/app') throw new Error('Use a plain HTTP(S) URL ending in /app');
+fs.rmSync(path.join(root, 'www'), { recursive: true, force: true });
+fs.cpSync(dist, path.join(root, 'www'), { recursive: true });
+const index = path.join(root, 'www/index.html');
+fs.writeFileSync(index, fs.readFileSync(index, 'utf8').replace('<head>', '<head>\n<script>history.replaceState(null, "", "/app");</script>'));
+fs.writeFileSync(path.join(root, 'capacitor.config.json'), JSON.stringify({ appId: 'com.tianjia.stewarddemo', appName: 'FinGuard', webDir: 'www', server: { url: url.href, cleartext: url.protocol === 'http:' } }, null, 2) + '\n');
+console.log(`iPhone demo URL: ${url.href}`);
+console.log(port === '5190' ? 'Offline mock demo: keep the Mac mock services running.' : 'Keep the server running on this Mac (Start FinGuard Demo.command).');
+console.log('Run cap sync ios after URL changes.');

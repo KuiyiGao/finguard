@@ -1,0 +1,17 @@
+.savings-screen h2 { font-size: 17px; line-height: 1.4; }
+.savings-screen h3 { font-size: 14px; }
+.savings-values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 4px 0; }
+.savings-values div:last-child { grid-column: 1 / -1; }
+.savings-values dt { font-size: 12px; color: var(--text-2); }
+.savings-values dd { margin: 4px 0 0; font-size: 20px; font-weight: 650; }
+.savings-screen summary { cursor: pointer; padding: 12px 0; font-weight: 600; }
+.savings-detail { padding: 4px 0 12px; font-size: 14px; line-height: 1.5; }
+.savings-detail ul { padding-left: 20px; }
+.savings-source, .savings-screen h2, .savings-detail p { overflow-wrap: anywhere; }
+.savings-screen .btn { min-height: 44px; white-space: normal; }
+.savings-screen a { color: var(--brand); text-decoration: underline; }
+
+.savings-pipeline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 12px; margin: 0; list-style: none; border: 1px solid var(--border); border-radius: 10px; font-size: 12px; overflow-wrap: anywhere; }
+
+.savings-cards { border: 0; padding: 0; margin: 0; min-width: 0; }
+.savings-screen summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; }

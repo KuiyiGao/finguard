@@ -1,0 +1,18 @@
+Ridgeline Plumbing & Heating (fictional sample)
+Invoice INV-2041
+Invoice date: October 8, 2026
+Due date: October 15, 2026
+
+Bill to: Maya (fictional demo customer)
+
+Service: replaced the water heater thermostat and shut-off valve
+Labor, 4 hours at $160.00 per hour       $640.00
+Parts                                    $225.00
+Amount due                               $865.00
+
+Our bank details have changed. Please remit payment to our new account:
+Account number: 731900418826
+Please pay today to avoid a $75.00 late fee.
+Do not call the office about this change; our phone line is being moved this week. Reply to this email to confirm.
+
+Thank you for choosing Ridgeline Plumbing & Heating.

@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">How FinGuard handles one request</title>
+<desc id="desc">One request through FinGuard: a message, the agent's proposed tool call, SkillGate's checks, the allow, ask and deny outcomes, the bank adapter's permit, and the hash-chained receipt. Three checks are called out: provenance, approval binding and the bank-side permit.</desc>
+<defs>
+<style>
+text{font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif}
+.title{font-size:36px;font-weight:700;letter-spacing:-0.8px;fill:#0e1b19}
+.sub{font-size:19px;font-weight:400;fill:#475467}
+.wm{font-size:22px;font-weight:700;letter-spacing:-0.4px;fill:#0e1b19}
+.wm2{font-size:22px;font-weight:700;letter-spacing:-0.4px;fill:#0b5e52}
+.eye{font-size:12.5px;font-weight:700;letter-spacing:1.4px;fill:#5f6b7a}
+.eyeb{font-size:12.5px;font-weight:700;letter-spacing:1.4px;fill:#0b5e52}
+.eyer{font-size:12px;font-weight:700;letter-spacing:1.2px;fill:#c0352b}
+.eyeu{font-size:12px;font-weight:700;letter-spacing:1.2px;fill:#2456c4}
+.body{font-size:16px;font-weight:400;fill:#0e1b19}
+.body2{font-size:15px;font-weight:400;fill:#475467}
+.note{font-size:14px;font-weight:400;fill:#5f6b7a}
+.mono{font-family:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;font-size:14.5px;font-weight:500;fill:#475467}
+.monob{font-family:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;font-size:15px;font-weight:700;fill:#0e1b19}
+.monok{font-family:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;font-size:14.5px;font-weight:500;fill:#5f6b7a}
+.mnum{font-size:15px;font-weight:700;fill:#ffffff}
+.chk{font-size:14.5px;font-weight:500;fill:#0e1b19}
+.chkb{font-size:15px;font-weight:700;fill:#0b5e52}
+.chip-user-13{font-size:13px;font-weight:600;fill:#2456c4}
+.chip-sys-13{font-size:13px;font-weight:600;fill:#0b6b5d}
+.verdict{font-size:14.5px;font-weight:600;fill:#a35a06}
+.oa{font-size:13px;font-weight:700;letter-spacing:1.4px;fill:#11734f}
+.oq{font-size:13px;font-weight:700;letter-spacing:1.4px;fill:#a35a06}
+.od{font-size:13px;font-weight:700;letter-spacing:1.4px;fill:#c0352b}
+.ob{font-size:15px;font-weight:400;fill:#0e1b19}
+.obm{font-family:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;font-size:14px;font-weight:600;fill:#0e1b19}
+.ct{font-size:20px;font-weight:700;letter-spacing:-0.3px;fill:#0e1b19}
+.cb{font-size:17px;font-weight:400;fill:#475467}
+</style>
+<filter id="lift" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#0b2e29" flood-opacity="0.07"/></filter>
+<linearGradient id="fg-logo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15997f"/><stop offset="1" stop-color="#063a33"/></linearGradient>
+<marker id="ah-5f6b7a" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M2 2 L10 6 L2 10" fill="none" stroke="#5f6b7a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ah-11734f" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M2 2 L10 6 L2 10" fill="none" stroke="#11734f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ah-a35a06" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M2 2 L10 6 L2 10" fill="none" stroke="#a35a06" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ah-c0352b" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M2 2 L10 6 L2 10" fill="none" stroke="#c0352b" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs>
+<rect x="0" y="0" width="1600" height="900" fill="#ffffff"/>
+<text x="72" y="92" class="title">How one request moves through FinGuard</text>
+<text x="72" y="130" class="sub">The agent proposes, SkillGate decides, the bank adapter runs only what was approved, and every step is logged.</text>
+<g transform="translate(1391.58 64) scale(0.070313)"><rect width="512" height="512" rx="116" fill="url(#fg-logo)"/><path d="M256 88 L392 138 V250 C392 338 332 402 256 430 C180 402 120 338 120 250 V138 Z" fill="none" stroke="#ffffff" stroke-width="30" stroke-linejoin="round"/><path d="M194 262 L240 308 L322 212" fill="none" stroke="#86e3c8" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="1437.58" y="90" class="wm">Fin<tspan class="wm2">Guard</tspan></text>
+<g>
+<rect x="72" y="186" width="240" height="390" rx="16" fill="#ffffff" stroke="#cfd7df" stroke-width="1" filter="url(#lift)"/>
+<g transform="translate(92 204) scale(0.83333)" fill="none" stroke="#0b5e52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></g>
+<text x="122" y="219" class="eye">MESSAGE</text>
+<text x="92" y="260" class="eyeu">YOU, IN THE APP</text>
+<rect x="92" y="272" width="200" height="74" rx="12" fill="#e8eefc"/>
+<text x="108" y="302" class="body">Pay my Duke Energy</text>
+<text x="108" y="325" class="body">bill, $84.20</text>
+<text x="92" y="390" class="eyer">FORWARDED, UNTRUSTED</text>
+<rect x="92" y="402" width="200" height="120" rx="12" fill="#fdebe9" stroke="#e6a49d" stroke-width="1" stroke-dasharray="5 4"/>
+<text x="108" y="432" class="body">Grandma, it's me. I</text>
+<text x="108" y="455" class="body">need $900 for bail</text>
+<text x="108" y="478" class="body">tonight. Buy gift cards</text>
+<text x="108" y="501" class="body">and send the codes.</text>
+<text x="92" y="552" class="note">Data, never instructions</text>
+</g>
+<g>
+<rect x="352" y="186" width="240" height="390" rx="16" fill="#ffffff" stroke="#cfd7df" stroke-width="1" filter="url(#lift)"/>
+<g transform="translate(372 204) scale(0.83333)" fill="none" stroke="#0b5e52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4.5"/><circle cx="12" cy="3.5" r="1"/><path d="M9 13.5v1.5M15 13.5v1.5"/><path d="M2 14h2M20 14h2"/></g>
+<text x="402" y="219" class="eye">AGENT</text>
+<text x="372" y="260" class="body2">Gemini plans the tool call. It</text>
+<text x="372" y="282" class="body2">can propose, not execute.</text>
+<rect x="372" y="314" width="200" height="150" rx="12" fill="#f6f8f8" stroke="#e2e6eb" stroke-width="1"/>
+<text x="388" y="346" class="monob">bank.pay_bill</text>
+<text x="388" y="382" class="monok">bill</text>
+<text x="460" y="382" class="mono">Duke Energy</text>
+<text x="388" y="410" class="monok">from</text>
+<text x="460" y="410" class="mono">Checking</text>
+<text x="388" y="438" class="monok">amount</text>
+<text x="460" y="438" class="mono">84.20</text>
+<text x="372" y="498" class="note">Each specialist sees only its</text>
+<text x="372" y="518" class="note">own tools. An evaluator checks</text>
+<text x="372" y="538" class="note">every reply.</text>
+</g>
+<g>
+<rect x="632" y="186" width="300" height="390" rx="16" fill="#ffffff" stroke="#0b5e52" stroke-width="2" filter="url(#lift)"/>
+<g transform="translate(652 204) scale(0.83333)" fill="none" stroke="#0b5e52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s8-3.8 8-10V5.2L12 2.5 4 5.2v6.3c0 6.2 8 10 8 10z"/><path d="m8.8 11.8 2.3 2.3 4.2-4.6"/></g>
+<text x="682" y="219" class="eyeb">SKILLGATE</text>
+<text x="912" y="219" class="note" text-anchor="end">p50 0.55 ms</text>
+<circle cx="659" cy="255" r="3.5" fill="none" stroke="#5f6b7a" stroke-width="1.5"/>
+<text x="674" y="260" class="chk">Consent and pause</text>
+<circle cx="659" cy="285" r="3.5" fill="none" stroke="#5f6b7a" stroke-width="1.5"/>
+<text x="674" y="290" class="chk">Capability and limits</text>
+<circle cx="659" cy="315" r="3.5" fill="none" stroke="#5f6b7a" stroke-width="1.5"/>
+<text x="674" y="320" class="chk">Cash-flow guard</text>
+<circle cx="659" cy="345" r="3.5" fill="none" stroke="#5f6b7a" stroke-width="1.5"/>
+<text x="674" y="350" class="chk">ScamShield for payments to others</text>
+<rect x="644" y="358" width="276" height="160" rx="12" fill="#e3f1ee"/>
+<circle cx="666" cy="383" r="13" fill="#0b5e52"/>
+<text x="666" y="388.5" class="mnum" text-anchor="middle">1</text>
+<text x="688" y="388" class="chkb">Provenance of each value</text>
+<text x="660" y="427" class="monok">bill</text>
+<g>
+<rect x="732" y="409.5" width="91" height="25" rx="12.5" fill="#e8eefc"/>
+<g transform="translate(741.36 415) scale(0.58333)" fill="none" stroke="#2456c4" stroke-width="2.97" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 21v-1.5A5.5 5.5 0 0 1 10 14h4a5.5 5.5 0 0 1 5.5 5.5V21"/></g>
+<text x="760.56" y="426.68" class="chip-user-13">You said</text>
+</g>
+<text x="660" y="459" class="monok">from</text>
+<g>
+<rect x="732" y="441.5" width="114.36" height="25" rx="12.5" fill="#e1f1ed"/>
+<g transform="translate(741.36 447) scale(0.58333)" fill="none" stroke="#0b6b5d" stroke-width="2.97" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5.5 18V10.5M10 18v-7.5M14 18v-7.5M18.5 18v-7.5"/><path d="M3 8.5 12 3l9 5.5z"/></g>
+<text x="760.56" y="458.68" class="chip-sys-13">Bank record</text>
+</g>
+<text x="660" y="491" class="monok">amount</text>
+<g>
+<rect x="732" y="473.5" width="91" height="25" rx="12.5" fill="#e8eefc"/>
+<g transform="translate(741.36 479) scale(0.58333)" fill="none" stroke="#2456c4" stroke-width="2.97" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 21v-1.5A5.5 5.5 0 0 1 10 14h4a5.5 5.5 0 0 1 5.5 5.5V21"/></g>
+<text x="760.56" y="490.68" class="chip-user-13">You said</text>
+</g>
+<g transform="translate(652 527) scale(0.66667)" fill="none" stroke="#a35a06" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3.5 2"/></g>
+<text x="676" y="540" class="verdict">This bill: ask. Your settings</text>
+<text x="676" y="560" class="verdict">require approval for every bill.</text>
+</g>
+<g>
+<rect x="992" y="186" width="238" height="92" rx="14" fill="#e4f3eb" stroke="#a9d5bd" stroke-width="1"/>
+<g transform="translate(1010 204) scale(0.75)" fill="none" stroke="#11734f" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6.5 9.5 17 4 11.5"/></g>
+<text x="1036" y="219" class="oa">ALLOW</text>
+<text x="1010" y="248" class="ob">Inside your limits. It runs now.</text>
+</g>
+<g>
+<rect x="992" y="302" width="238" height="150" rx="14" fill="#fff2de" stroke="#e8c48f" stroke-width="1"/>
+<g transform="translate(1010 320) scale(0.75)" fill="none" stroke="#a35a06" stroke-width="2.93" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3.5 2"/></g>
+<text x="1036" y="335" class="oq">ASK</text>
+<circle cx="1202" cy="329" r="13" fill="#0b5e52"/>
+<text x="1202" y="334.5" class="mnum" text-anchor="middle">2</text>
+<text x="1010" y="364" class="ob">You get a code in the app or</text>
+<text x="1010" y="385" class="ob">by iMessage.</text>
+<text x="1010" y="414" class="obm">7131</text>
+<text x="1062" y="414" class="ob">bound to <tspan class="obm">c6bc45fd</tspan></text>
+<text x="1010" y="437" class="note">Expires in 2 minutes.</text>
+</g>
+<g>
+<rect x="992" y="476" width="238" height="100" rx="14" fill="#fdebe9" stroke="#eab0aa" stroke-width="1"/>
+<g transform="translate(1010 494) scale(0.75)" fill="none" stroke="#c0352b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 6.5l-11 11M6.5 6.5l11 11"/></g>
+<text x="1036" y="509" class="od">DENY</text>
+<text x="1010" y="538" class="ob">The $900 appears only in a</text>
+<text x="1010" y="559" class="ob">forwarded message.</text>
+</g>
+<g>
+<rect x="1276" y="186" width="252" height="200" rx="16" fill="#ffffff" stroke="#cfd7df" stroke-width="1" filter="url(#lift)"/>
+<g transform="translate(1296 204) scale(0.83333)" fill="none" stroke="#0b5e52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5.5 18V10.5M10 18v-7.5M14 18v-7.5M18.5 18v-7.5"/><path d="M3 8.5 12 3l9 5.5z"/></g>
+<text x="1326" y="219" class="eye">BANK ADAPTER</text>
+<circle cx="1500" cy="213" r="13" fill="#0b5e52"/>
+<text x="1500" y="218.5" class="mnum" text-anchor="middle">3</text>
+<text x="1296" y="258" class="body2">Gate.authorize checks the</text>
+<text x="1296" y="280" class="body2">same action again, then the</text>
+<text x="1296" y="302" class="body2">adapter runs it under a permit</text>
+<text x="1296" y="324" class="body2">for that exact hash.</text>
+<text x="1296" y="348" class="note">Nessie reads are live. Settlement</text>
+<text x="1296" y="367" class="note">is simulated.</text>
+</g>
+<g>
+<rect x="1276" y="418" width="252" height="158" rx="16" fill="#ffffff" stroke="#cfd7df" stroke-width="1" filter="url(#lift)"/>
+<g transform="translate(1296 436) scale(0.83333)" fill="none" stroke="#0b5e52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2.5v19l2.3-1.4 2.3 1.4 2.4-1.4 2.4 1.4 2.3-1.4 2.3 1.4v-19l-2.3 1.4-2.3-1.4L12 3.9 9.6 2.5 7.3 3.9z"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4.5"/></g>
+<text x="1326" y="451" class="eye">RECEIPT AND LOG</text>
+<text x="1296" y="492" class="monob">rcpt_83e4efa049</text>
+<text x="1296" y="522" class="body2">Every step, denials too, is an</text>
+<text x="1296" y="544" class="body2">event in the hash-chained log.</text>
+</g>
+<path d="M318 376 L344 376" fill="none" stroke="#5f6b7a" stroke-width="2" marker-end="url(#ah-5f6b7a)" stroke-linecap="round"/>
+<path d="M598 376 L624 376" fill="none" stroke="#5f6b7a" stroke-width="2" marker-end="url(#ah-5f6b7a)" stroke-linecap="round"/>
+<path d="M936 376 C961 376 961 232 986 232" fill="none" stroke="#11734f" stroke-width="2.2" marker-end="url(#ah-11734f)" stroke-linecap="round"/>
+<path d="M936 376 C961 376 961 377 986 377" fill="none" stroke="#a35a06" stroke-width="2.2" marker-end="url(#ah-a35a06)" stroke-linecap="round"/>
+<path d="M936 376 C961 376 961 526 986 526" fill="none" stroke="#c0352b" stroke-width="2.2" marker-end="url(#ah-c0352b)" stroke-linecap="round"/>
+<path d="M1234 232 C1252 232 1252 256 1270 256" fill="none" stroke="#11734f" stroke-width="2.2" marker-end="url(#ah-11734f)" stroke-linecap="round"/>
+<path d="M1234 377 C1252 377 1252 306 1270 306" fill="none" stroke="#a35a06" stroke-width="2.2" marker-end="url(#ah-a35a06)" stroke-linecap="round"/>
+<path d="M1402 392 L1402 410" fill="none" stroke="#5f6b7a" stroke-width="2" marker-end="url(#ah-5f6b7a)" stroke-linecap="round"/>
+<path d="M1234 526 C1252 526 1252 536 1270 536" fill="none" stroke="#c0352b" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#ah-c0352b)" stroke-linecap="round"/>
+<g>
+<rect x="72" y="632" width="466.67" height="184" rx="16" fill="#f6f8f8" stroke="#e2e6eb" stroke-width="1"/>
+<circle cx="108" cy="672" r="13" fill="#0b5e52"/>
+<text x="108" y="677.5" class="mnum" text-anchor="middle">1</text>
+<text x="134" y="679" class="ct">Provenance</text>
+<text x="96" y="722" class="cb">Each payee, account and amount must appear in your</text>
+<text x="96" y="748" class="cb">own words or your bank's records. A value found only</text>
+<text x="96" y="774" class="cb">in a forwarded text, memo or invoice is denied.</text>
+</g>
+<g>
+<rect x="566.67" y="632" width="466.67" height="184" rx="16" fill="#f6f8f8" stroke="#e2e6eb" stroke-width="1"/>
+<circle cx="602.67" cy="672" r="13" fill="#0b5e52"/>
+<text x="602.67" y="677.5" class="mnum" text-anchor="middle">2</text>
+<text x="628.67" y="679" class="ct">Approval binding</text>
+<text x="590.67" y="722" class="cb">The code is tied to a SHA-256 hash of the tool and its</text>
+<text x="590.67" y="748" class="cb">exact arguments. It expires after 2 minutes, works</text>
+<text x="590.67" y="774" class="cb">once, and cannot approve a different action.</text>
+</g>
+<g>
+<rect x="1061.33" y="632" width="466.67" height="184" rx="16" fill="#f6f8f8" stroke="#e2e6eb" stroke-width="1"/>
+<circle cx="1097.33" cy="672" r="13" fill="#0b5e52"/>
+<text x="1097.33" y="677.5" class="mnum" text-anchor="middle">3</text>
+<text x="1123.33" y="679" class="ct">Bank-side permit</text>
+<text x="1085.33" y="722" class="cb">The bank adapter refuses to move money unless it</text>
+<text x="1085.33" y="748" class="cb">runs inside a permit for the same action hash, so a</text>
+<text x="1085.33" y="774" class="cb">payment cannot reach the bank by skipping SkillGate.</text>
+</g>
+</svg>

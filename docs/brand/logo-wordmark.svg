@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#15997f"/>
+      <stop offset="1" stop-color="#063a33"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(40 40) scale(0.5469)">
+    <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+    <path d="M256 88 L392 138 V250 C392 338 332 402 256 430 C180 402 120 338 120 250 V138 Z" fill="none" stroke="#ffffff" stroke-width="30" stroke-linejoin="round"/>
+    <path d="M194 262 L240 308 L322 212" fill="none" stroke="#86e3c8" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="365" y="222" font-family="-apple-system, 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="150" font-weight="800" letter-spacing="-4" fill="#0b2e29">Fin<tspan fill="#0f7d6b">Guard</tspan></text>
+</svg>

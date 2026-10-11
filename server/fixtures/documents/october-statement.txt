@@ -1,0 +1,33 @@
+Fernhollow Bank, NA (simulated sample)
+October 2026 checking account statement
+Account: Everyday Checking ending 1234
+Statement period: September 10, 2026 to October 9, 2026
+
+Account summary
+Beginning balance on Sep 10           $348.70
+Deposits and other credits          $6,400.00
+Withdrawals and other debits        $2,486.15
+Fees                                   $52.00
+Ending balance on Oct 9             $4,210.55
+
+Transactions
+Date    Description                          Amount      Balance
+09/11   Harris Teeter                       -120.00       228.70
+09/12   Spotify subscription                 -10.99       217.71
+09/13   Duke Energy                          -78.15       139.56
+09/14   CloudGym membership dues             -29.99       109.57
+09/15   Harris Teeter                        -86.40        23.17
+09/16   Maple Court Apartments rent       -1,450.00    -1,426.83
+09/16   Overdraft fee                        -20.00    -1,446.83
+09/17   Spectrum Internet                    -90.00    -1,536.83
+09/17   Overdraft fee                        -20.00    -1,556.83
+09/25   Payroll deposit, Northgate LLC     3,200.00     1,643.17
+09/28   Harris Teeter                       -142.18     1,500.99
+10/02   ATM withdrawal                      -200.00     1,300.99
+10/05   Harris Teeter                       -131.04     1,169.95
+10/08   Pinewood Hardware                   -147.40     1,022.55
+10/09   Payroll deposit, Northgate LLC     3,200.00     4,222.55
+10/09   Monthly maintenance fee              -12.00     4,210.55
+
+An overdraft fee is charged each time we pay an item that your balance does not cover.
+The monthly maintenance fee is waived in any month your daily balance stays at or above $1,500.00.

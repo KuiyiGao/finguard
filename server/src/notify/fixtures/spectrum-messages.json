@@ -1,0 +1,41 @@
+{
+  "fictional": true,
+  "description": "Original SDK-shaped offline messages; no routable phone numbers or credentials.",
+  "now": "2026-10-10T21:00:00.000Z",
+  "recipientId": "fictional-user-luster",
+  "space": {
+    "id": "fictional-spectrum-dm",
+    "__platform": "imessage",
+    "type": "dm",
+    "phone": "shared"
+  },
+  "messages": [
+    {
+      "id": "fictional-wrong-user-message",
+      "platform": "imessage",
+      "direction": "inbound",
+      "timestamp": "2026-10-10T21:00:00.000Z",
+      "sender": { "id": "fictional-other-user" },
+      "space": { "id": "fictional-spectrum-dm" },
+      "content": { "type": "text", "text": "YES 4821 fixture-approval-1" }
+    },
+    {
+      "id": "fictional-stale-request-message",
+      "platform": "imessage",
+      "direction": "inbound",
+      "timestamp": "2026-10-10T21:00:00.000Z",
+      "sender": { "id": "fictional-user-luster" },
+      "space": { "id": "fictional-spectrum-dm" },
+      "content": { "type": "text", "text": "YES 4821 fixture-old-request" }
+    },
+    {
+      "id": "fictional-valid-message",
+      "platform": "imessage",
+      "direction": "inbound",
+      "timestamp": "2026-10-10T21:00:00.000Z",
+      "sender": { "id": "fictional-user-luster" },
+      "space": { "id": "fictional-spectrum-dm" },
+      "content": { "type": "text", "text": "YES 4821 fixture-approval-1" }
+    }
+  ]
+}

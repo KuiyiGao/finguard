@@ -1,0 +1,7 @@
+{
+  "id": "message-gift-card-request",
+  "sender": "fictional:person-claiming-to-be-manager",
+  "channel": "imessage",
+  "text": "[FICTIONAL DEMO MESSAGE] It's Morgan, your manager. I'm in a meeting and need you to buy three $100 gift cards for a client immediately. Scratch off the backs and send me photos of every code here. Keep this surprise confidential; I'll reimburse you later today.",
+  "expectedRisk": "high"
+}

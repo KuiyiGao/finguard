@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="2400" viewBox="0 0 1800 2400" role="img" aria-labelledby="title desc">
+<title id="title">FinGuard poster</title>
+<desc id="desc">FinGuard, HackNC 2026: an AI money agent that has to show its evidence before it acts. Three principles, the request flow, measured results, live integrations, and the repository link.</desc>
+<defs>
+<style>
+text{font-family:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif}
+.wm{font-size:42px;font-weight:700;letter-spacing:-0.8px;fill:#0e1b19}
+.wm2{font-size:42px;font-weight:700;letter-spacing:-0.8px;fill:#0b5e52}
+.event{font-size:26px;font-weight:600;fill:#475467}
+.h1{font-size:104px;font-weight:700;letter-spacing:-3px;fill:#0e1b19}
+.h1a{font-size:104px;font-weight:700;letter-spacing:-3px;fill:#0b5e52}
+.problem{font-size:38px;font-weight:400;letter-spacing:-0.2px;fill:#475467}
+.eye{font-size:20px;font-weight:700;letter-spacing:2.4px;fill:#0b5e52}
+.pn{font-family:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;font-size:22px;font-weight:600;fill:#0b5e52}
+.pt{font-size:38px;font-weight:700;letter-spacing:-0.8px;fill:#0e1b19}
+.pb{font-size:24px;font-weight:400;fill:#475467}
+.mt-v-1_12{font-size:31.360000000000003px;font-weight:700;letter-spacing:-0.3px;fill:#0e1b19}
+.mt-vd-1_12{font-size:31.360000000000003px;font-weight:700;letter-spacing:-0.3px;fill:#9aa4b1}
+.mt-ok-1_12{font-size:17.92px;font-weight:700;fill:#11734f}
+.mt-no-1_12{font-size:17.92px;font-weight:700;fill:#c0352b}
+.chip-user-15_680000000000001{font-size:15.680000000000001px;font-weight:600;fill:#2456c4}
+.chip-inbound-15_680000000000001{font-size:15.680000000000001px;font-weight:600;fill:#c0352b}
+.mc-c-1_12{font-family:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;font-size:26.880000000000003px;font-weight:600;letter-spacing:4.48px;fill:#0e1b19}
+.mc-a-1_12{font-size:19.040000000000003px;font-weight:500;fill:#475467}
+.mc-ab-1_12{font-size:19.040000000000003px;font-weight:700;fill:#0e1b19}
+.mc-ar-1_12{font-size:19.040000000000003px;font-weight:700;fill:#c0352b}
+.mh-n-1_12{font-size:14.560000000000002px;font-weight:600;fill:#5f6b7a}
+.mh-nr-1_12{font-size:14.560000000000002px;font-weight:700;fill:#c0352b}
+.mh-h-1_12{font-family:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;font-size:16.8px;font-weight:600;fill:#0e1b19}
+.mh-hr-1_12{font-family:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;font-size:16.8px;font-weight:600;fill:#c0352b}
+.mh-c-1_12{font-size:16.8px;font-weight:500;fill:#475467}
+.mh-cr-1_12{font-size:16.8px;font-weight:700;fill:#c0352b}
+.nt{font-size:30px;font-weight:700;letter-spacing:-0.4px;fill:#0e1b19}
+.ntb{font-size:30px;font-weight:700;letter-spacing:-0.4px;fill:#0b5e52}
+.nc{font-size:21px;font-weight:400;fill:#475467}
+.chip-allow-17{font-size:17px;font-weight:600;fill:#11734f}
+.chip-ask-17{font-size:17px;font-weight:600;fill:#a35a06}
+.chip-deny-17{font-size:17px;font-weight:600;fill:#c0352b}
+.beye{font-size:20px;font-weight:700;letter-spacing:2.4px;fill:#86e3c8}
+.snum{font-size:64px;font-weight:700;letter-spacing:-1.6px;fill:#ffffff}
+.slbl{font-size:20px;font-weight:400;fill:#bfe6dc}
+.auth{font-size:26px;font-weight:700;letter-spacing:-0.2px;fill:#ffffff}
+.repo{font-family:ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;font-size:21px;font-weight:500;fill:#86e3c8}
+.scan{font-size:18px;font-weight:500;fill:#bfe6dc}
+.live{font-size:24px;font-weight:600;fill:#ffffff}
+.livel{font-size:18px;font-weight:700;letter-spacing:2.2px;fill:#86e3c8}
+.sim{font-size:20px;font-weight:400;fill:#bfe6dc}
+</style>
+<linearGradient id="fg-logo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15997f"/><stop offset="1" stop-color="#063a33"/></linearGradient>
+<marker id="ah-0b5e52" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M2 2 L10 6 L2 10" fill="none" stroke="#0b5e52" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ah-9aa4b1" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M2 2 L10 6 L2 10" fill="none" stroke="#9aa4b1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<marker id="ah-5f6b7a" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="12" markerHeight="12" markerUnits="userSpaceOnUse" orient="auto"><path d="M2 2 L10 6 L2 10" fill="none" stroke="#5f6b7a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></marker>
+<linearGradient id="band" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b5247"/><stop offset="1" stop-color="#05302a"/></linearGradient>
+</defs>
+<rect x="0" y="0" width="1800" height="2400" fill="#ffffff"/>
+<g transform="translate(120 100) scale(0.140625)"><rect width="512" height="512" rx="116" fill="url(#fg-logo)"/><path d="M256 88 L392 138 V250 C392 338 332 402 256 430 C180 402 120 338 120 250 V138 Z" fill="none" stroke="#ffffff" stroke-width="30" stroke-linejoin="round"/><path d="M194 262 L240 308 L322 212" fill="none" stroke="#86e3c8" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/></g>
+<text x="214" y="150" class="wm">Fin<tspan class="wm2">Guard</tspan></text>
+<text x="1680" y="146" class="event" text-anchor="end">HackNC 2026</text>
+<text x="116" y="340" class="h1">An AI money agent that has to</text>
+<text x="116" y="454" class="h1">show its <tspan class="h1a">evidence</tspan> before it acts.</text>
+<text x="120" y="542" class="problem">Agents that can pay bills also read scam texts and fake invoices, and those</text>
+<text x="120" y="596" class="problem">words can steer where the money goes.</text>
+<text x="120" y="702" class="eye">THREE PRINCIPLES</text>
+<rect x="365.68" y="695" width="1314.32" height="1" fill="#e2e6eb"/>
+<rect x="120" y="742" width="480" height="184" rx="18" fill="#f6f8f8" stroke="#e2e6eb" stroke-width="1"/>
+<text x="148" y="810.48" class="mt-v-1_12">$84.20</text>
+<g>
+<rect x="276.67" y="784.28" width="108.32" height="30" rx="15" fill="#e8eefc"/>
+<g transform="translate(287.96 790.78) scale(0.70833)" fill="none" stroke="#2456c4" stroke-width="2.95" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 21v-1.5A5.5 5.5 0 0 1 10 14h4a5.5 5.5 0 0 1 5.5 5.5V21"/></g>
+<text x="311.23" y="804.92" class="chip-user-15_680000000000001">You said</text>
+</g>
+<text x="572" y="806" class="mt-ok-1_12" text-anchor="end">Allowed</text>
+<g transform="translate(476.8 789.2) scale(0.84)" fill="none" stroke="#11734f" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6.5 9.5 17 4 11.5"/></g>
+<text x="148" y="879.92" class="mt-vd-1_12">$900</text>
+<rect x="146" y="869.28" width="86.29" height="2.8" fill="#c0352b"/>
+<g>
+<rect x="276.67" y="853.72" width="158.86" height="30" rx="15" fill="#fdebe9"/>
+<g transform="translate(287.96 860.22) scale(0.70833)" fill="none" stroke="#c0352b" stroke-width="2.95" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></g>
+<text x="311.23" y="874.36" class="chip-inbound-15_680000000000001">Forwarded text</text>
+</g>
+<text x="572" y="875.44" class="mt-no-1_12" text-anchor="end">Blocked</text>
+<g transform="translate(476.48 858.64) scale(0.84)" fill="none" stroke="#c0352b" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 6.5l-11 11M6.5 6.5l11 11"/></g>
+<rect x="148" y="834" width="424" height="1" fill="#e2e6eb"/>
+<text x="120" y="980" class="pn">01</text>
+<text x="120" y="1028" class="pt">Trace every value</text>
+<text x="120" y="1074" class="pt">to its source</text>
+<text x="120" y="1120" class="pb">Each payee, account and amount has to</text>
+<text x="120" y="1155" class="pb">come from your own words or your bank's</text>
+<text x="120" y="1190" class="pb">records. A value that appears only in a</text>
+<text x="120" y="1225" class="pb">forwarded text or an invoice is blocked.</text>
+<rect x="660" y="742" width="480" height="184" rx="18" fill="#f6f8f8" stroke="#e2e6eb" stroke-width="1"/>
+<g>
+<rect x="688" y="776.88" width="111.77" height="44.8" rx="10.080000000000002" fill="#ffffff" stroke="#0b5e52" stroke-width="1.6"/>
+<text x="702.56" y="808.8" class="mc-c-1_12">7131</text>
+</g>
+<path d="M806.49 799.28 L844.57 799.28" fill="none" stroke="#0b5e52" stroke-width="1.6" marker-end="url(#ah-0b5e52)" stroke-linecap="round"/>
+<text x="858.01" y="806" class="mc-a-1_12">Duke Energy, <tspan class="mc-ab-1_12">$84.20</tspan></text>
+<circle cx="1098.56" cy="799.28" r="13.44" fill="#e4f3eb"/>
+<g transform="translate(1089.6 790.32) scale(0.74667)" fill="none" stroke="#11734f" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6.5 9.5 17 4 11.5"/></g>
+<g>
+<rect x="688" y="846.32" width="111.77" height="44.8" rx="10.080000000000002" fill="#ffffff" stroke="#cfd7df" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="702.56" y="878.24" class="mc-c-1_12">7131</text>
+</g>
+<path d="M806.49 868.72 L844.57 868.72" fill="none" stroke="#9aa4b1" stroke-width="1.6" stroke-dasharray="3 4" marker-end="url(#ah-9aa4b1)" stroke-linecap="round"/>
+<text x="858.01" y="875.44" class="mc-a-1_12">Duke Energy, <tspan class="mc-ar-1_12">$84.21</tspan></text>
+<circle cx="1098.56" cy="868.72" r="13.44" fill="#fdebe9"/>
+<g transform="translate(1089.6 859.76) scale(0.74667)" fill="none" stroke="#c0352b" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 6.5l-11 11M6.5 6.5l11 11"/></g>
+<rect x="688" y="834" width="424" height="1" fill="#e2e6eb"/>
+<text x="660" y="980" class="pn">02</text>
+<text x="660" y="1028" class="pt">One code,</text>
+<text x="660" y="1074" class="pt">one exact action</text>
+<text x="660" y="1120" class="pb">A 4-digit code is bound to a SHA-256 hash</text>
+<text x="660" y="1155" class="pb">of the tool and its exact arguments. It expires</text>
+<text x="660" y="1190" class="pb">in 2 minutes and approves nothing else.</text>
+<rect x="1200" y="742" width="480" height="184" rx="18" fill="#f6f8f8" stroke="#e2e6eb" stroke-width="1"/>
+<g>
+<rect x="1228" y="775.76" width="90.88" height="64.96" rx="10.080000000000002" fill="#ffffff" stroke="#cfd7df" stroke-width="1"/>
+<text x="1240.32" y="800.4" class="mh-n-1_12">#41</text>
+<text x="1240.32" y="825.04" class="mh-h-1_12">9f2a41</text>
+</g>
+<path d="M1322.24 808.24 L1335.68 808.24" fill="none" stroke="#5f6b7a" stroke-width="1.6" stroke-linecap="round"/>
+<g>
+<rect x="1339.04" y="775.76" width="90.88" height="64.96" rx="10.080000000000002" fill="#ffffff" stroke="#cfd7df" stroke-width="1"/>
+<text x="1351.36" y="800.4" class="mh-n-1_12">#42</text>
+<text x="1351.36" y="825.04" class="mh-h-1_12">3b7d0c</text>
+</g>
+<path d="M1433.28 808.24 L1446.72 808.24" fill="none" stroke="#5f6b7a" stroke-width="1.6" stroke-linecap="round"/>
+<g>
+<rect x="1450.08" y="775.76" width="90.88" height="64.96" rx="10.080000000000002" fill="#fdebe9" stroke="#c0352b" stroke-width="1.6"/>
+<text x="1462.4" y="800.4" class="mh-nr-1_12">#43</text>
+<text x="1462.4" y="825.04" class="mh-hr-1_12">e7c519</text>
+</g>
+<text x="1495.52" y="765.68" class="mh-nr-1_12" text-anchor="middle">edited</text>
+<path d="M1544.32 808.24 L1557.76 808.24" fill="none" stroke="#c0352b" stroke-width="1.6" stroke-dasharray="2 3" stroke-linecap="round"/>
+<g>
+<rect x="1561.12" y="775.76" width="90.88" height="64.96" rx="10.080000000000002" fill="#ffffff" stroke="#cfd7df" stroke-width="1"/>
+<text x="1573.44" y="800.4" class="mh-n-1_12">#44</text>
+<text x="1573.44" y="825.04" class="mh-h-1_12">a93c2d</text>
+</g>
+<text x="1228" y="885.52" class="mh-c-1_12">verify stops at <tspan class="mh-cr-1_12">#43</tspan>, the first altered event</text>
+<text x="1200" y="980" class="pn">03</text>
+<text x="1200" y="1028" class="pt">An append-only,</text>
+<text x="1200" y="1074" class="pt">hash-chained log</text>
+<text x="1200" y="1120" class="pb">Every step is an event whose hash covers the</text>
+<text x="1200" y="1155" class="pb">one before it, so an edited or deleted event</text>
+<text x="1200" y="1190" class="pb">shows up as a break in the chain.</text>
+<rect x="120" y="1299" width="1560" height="432" rx="24" fill="#f4f7f6"/>
+<text x="176" y="1369" class="eye">ONE REQUEST, END TO END</text>
+<circle cx="210" cy="1447" r="34" fill="#ffffff" stroke="#cfd7df" stroke-width="1.5"/>
+<g transform="translate(194 1431) scale(1.33333)" fill="none" stroke="#0b5e52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></g>
+<path d="M260 1447 L449.6 1447" fill="none" stroke="#5f6b7a" stroke-width="2" marker-end="url(#ah-5f6b7a)" stroke-linecap="round"/>
+<text x="176" y="1533" class="nt">Message</text>
+<text x="176" y="1575" class="nc">You type in the app or text</text>
+<text x="176" y="1606" class="nc">over iMessage. Forwarded</text>
+<text x="176" y="1637" class="nc">texts stay untrusted.</text>
+<circle cx="499.6" cy="1447" r="34" fill="#ffffff" stroke="#cfd7df" stroke-width="1.5"/>
+<g transform="translate(483.6 1431) scale(1.33333)" fill="none" stroke="#0b5e52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4.5"/><circle cx="12" cy="3.5" r="1"/><path d="M9 13.5v1.5M15 13.5v1.5"/><path d="M2 14h2M20 14h2"/></g>
+<path d="M549.6 1447 L739.2 1447" fill="none" stroke="#5f6b7a" stroke-width="2" marker-end="url(#ah-5f6b7a)" stroke-linecap="round"/>
+<text x="465.6" y="1533" class="nt">Agent</text>
+<text x="465.6" y="1575" class="nc">Gemini plans the tool calls.</text>
+<text x="465.6" y="1606" class="nc">It can propose a payment,</text>
+<text x="465.6" y="1637" class="nc">never run one.</text>
+<circle cx="789.2" cy="1447" r="34" fill="#0b5e52" stroke="#0b5e52" stroke-width="1.5"/>
+<g transform="translate(773.2 1431) scale(1.33333)" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5s8-3.8 8-10V5.2L12 2.5 4 5.2v6.3c0 6.2 8 10 8 10z"/><path d="m8.8 11.8 2.3 2.3 4.2-4.6"/></g>
+<path d="M839.2 1447 L1028.8 1447" fill="none" stroke="#5f6b7a" stroke-width="2" marker-end="url(#ah-5f6b7a)" stroke-linecap="round"/>
+<text x="755.2" y="1533" class="ntb">SkillGate</text>
+<text x="755.2" y="1575" class="nc">Checks consent, limits,</text>
+<text x="755.2" y="1606" class="nc">cash flow, scam signals</text>
+<text x="755.2" y="1637" class="nc">and each value's source.</text>
+<circle cx="1078.8" cy="1447" r="34" fill="#ffffff" stroke="#cfd7df" stroke-width="1.5"/>
+<g transform="translate(1062.8 1431) scale(1.33333)" fill="none" stroke="#0b5e52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5.5 18V10.5M10 18v-7.5M14 18v-7.5M18.5 18v-7.5"/><path d="M3 8.5 12 3l9 5.5z"/></g>
+<path d="M1128.8 1447 L1318.4 1447" fill="none" stroke="#5f6b7a" stroke-width="2" marker-end="url(#ah-5f6b7a)" stroke-linecap="round"/>
+<text x="1044.8" y="1533" class="nt">Bank</text>
+<text x="1044.8" y="1575" class="nc">Moves money only under a</text>
+<text x="1044.8" y="1606" class="nc">permit for that action.</text>
+<circle cx="1368.4" cy="1447" r="34" fill="#ffffff" stroke="#cfd7df" stroke-width="1.5"/>
+<g transform="translate(1352.4 1431) scale(1.33333)" fill="none" stroke="#0b5e52" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2.5v19l2.3-1.4 2.3 1.4 2.4-1.4 2.4 1.4 2.3-1.4 2.3 1.4v-19l-2.3 1.4-2.3-1.4L12 3.9 9.6 2.5 7.3 3.9z"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4.5"/></g>
+<text x="1334.4" y="1533" class="nt">Receipt</text>
+<text x="1334.4" y="1575" class="nc">Every step lands in an</text>
+<text x="1334.4" y="1606" class="nc">append-only,</text>
+<text x="1334.4" y="1637" class="nc">hash-chained log.</text>
+<g>
+<rect x="755.2" y="1663" width="93.78" height="32" rx="16" fill="#e4f3eb"/>
+<g transform="translate(767.44 1669.5) scale(0.79167)" fill="none" stroke="#11734f" stroke-width="2.86" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6.5 9.5 17 4 11.5"/></g>
+<text x="793.24" y="1685.12" class="chip-allow-17">Allow</text>
+</g>
+<g>
+<rect x="858.98" y="1663" width="80.17" height="32" rx="16" fill="#fff2de"/>
+<g transform="translate(871.22 1669.5) scale(0.79167)" fill="none" stroke="#a35a06" stroke-width="2.86" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3.5 2"/></g>
+<text x="897.02" y="1685.12" class="chip-ask-17">Ask</text>
+</g>
+<g>
+<rect x="949.15" y="1663" width="91.17" height="32" rx="16" fill="#fdebe9"/>
+<g transform="translate(961.39 1669.5) scale(0.79167)" fill="none" stroke="#c0352b" stroke-width="2.86" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 6.5l-11 11M6.5 6.5l11 11"/></g>
+<text x="987.19" y="1685.12" class="chip-deny-17">Deny</text>
+</g>
+<rect x="0" y="1795" width="1800" height="605" fill="url(#band)"/>
+<text x="120" y="1871" class="beye">MEASURED OFFLINE, OCTOBER 11, 2026</text>
+<text x="120" y="1951" class="snum">387/390</text>
+<text x="120" y="1993" class="slbl">server tests pass; 0 fail, 3 live-only</text>
+<text x="120" y="2021" class="slbl">skipped</text>
+<text x="532" y="1951" class="snum">38/38</text>
+<text x="532" y="1993" class="slbl">regression cases, with 7</text>
+<text x="532" y="2021" class="slbl">injected-instruction, 7 forwarded-scam</text>
+<text x="532" y="2049" class="slbl">and 5 payee-swap</text>
+<text x="944" y="1951" class="snum">28/30</text>
+<text x="944" y="1993" class="slbl">SkillGate eval cases; both misses are</text>
+<text x="944" y="2021" class="slbl">stricter than the label</text>
+<text x="120" y="2135" class="snum">0.55 ms</text>
+<text x="120" y="2177" class="slbl">gate.check p50; p95 is 3.8 ms</text>
+<text x="532" y="2135" class="snum">39/39</text>
+<text x="532" y="2177" class="slbl">checks across 5 households running in</text>
+<text x="532" y="2205" class="slbl">parallel</text>
+<text x="944" y="2135" class="snum">36</text>
+<text x="944" y="2177" class="slbl">HTTP routes; about 25k lines of</text>
+<text x="944" y="2205" class="slbl">TypeScript and 7k of tests</text>
+<rect x="1416" y="1849" width="264" height="264" rx="18" fill="#ffffff"/>
+<path transform="translate(1440 1873) scale(6.96774)" fill="#063a33" d="M1 1h7v1h-7zM10 1h1v1h-1zM14 1h2v1h-2zM17 1h2v1h-2zM20 1h1v1h-1zM23 1h7v1h-7zM1 2h1v1h-1zM7 2h1v1h-1zM9 2h1v1h-1zM13 2h1v1h-1zM15 2h2v1h-2zM18 2h1v1h-1zM20 2h2v1h-2zM23 2h1v1h-1zM29 2h1v1h-1zM1 3h1v1h-1zM3 3h3v1h-3zM7 3h1v1h-1zM10 3h1v1h-1zM12 3h4v1h-4zM21 3h1v1h-1zM23 3h1v1h-1zM25 3h3v1h-3zM29 3h1v1h-1zM1 4h1v1h-1zM3 4h3v1h-3zM7 4h1v1h-1zM10 4h3v1h-3zM14 4h3v1h-3zM19 4h1v1h-1zM23 4h1v1h-1zM25 4h3v1h-3zM29 4h1v1h-1zM1 5h1v1h-1zM3 5h3v1h-3zM7 5h1v1h-1zM9 5h1v1h-1zM11 5h2v1h-2zM15 5h2v1h-2zM18 5h3v1h-3zM23 5h1v1h-1zM25 5h3v1h-3zM29 5h1v1h-1zM1 6h1v1h-1zM7 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h2v1h-2zM23 6h1v1h-1zM29 6h1v1h-1zM1 7h7v1h-7zM9 7h1v1h-1zM11 7h1v1h-1zM13 7h1v1h-1zM15 7h1v1h-1zM17 7h1v1h-1zM19 7h1v1h-1zM21 7h1v1h-1zM23 7h7v1h-7zM10 8h1v1h-1zM14 8h2v1h-2zM18 8h4v1h-4zM1 9h1v1h-1zM3 9h1v1h-1zM5 9h1v1h-1zM7 9h1v1h-1zM10 9h2v1h-2zM15 9h1v1h-1zM25 9h1v1h-1zM28 9h1v1h-1zM1 10h1v1h-1zM5 10h2v1h-2zM10 10h1v1h-1zM12 10h2v1h-2zM15 10h1v1h-1zM17 10h2v1h-2zM21 10h1v1h-1zM23 10h1v1h-1zM26 10h1v1h-1zM29 10h1v1h-1zM2 11h1v1h-1zM4 11h1v1h-1zM6 11h5v1h-5zM12 11h1v1h-1zM14 11h1v1h-1zM18 11h1v1h-1zM22 11h2v1h-2zM25 11h1v1h-1zM27 11h3v1h-3zM3 12h1v1h-1zM6 12h1v1h-1zM8 12h2v1h-2zM16 12h1v1h-1zM18 12h2v1h-2zM24 12h2v1h-2zM28 12h1v1h-1zM4 13h2v1h-2zM7 13h1v1h-1zM17 13h2v1h-2zM20 13h4v1h-4zM26 13h1v1h-1zM28 13h2v1h-2zM1 14h5v1h-5zM8 14h2v1h-2zM11 14h2v1h-2zM14 14h1v1h-1zM17 14h2v1h-2zM20 14h4v1h-4zM26 14h1v1h-1zM29 14h1v1h-1zM2 15h1v1h-1zM4 15h2v1h-2zM7 15h2v1h-2zM10 15h2v1h-2zM15 15h1v1h-1zM19 15h1v1h-1zM23 15h1v1h-1zM25 15h2v1h-2zM28 15h2v1h-2zM2 16h3v1h-3zM6 16h1v1h-1zM9 16h2v1h-2zM12 16h8v1h-8zM21 16h3v1h-3zM26 16h1v1h-1zM28 16h1v1h-1zM1 17h2v1h-2zM4 17h2v1h-2zM7 17h1v1h-1zM13 17h1v1h-1zM15 17h1v1h-1zM18 17h1v1h-1zM20 17h2v1h-2zM23 17h2v1h-2zM26 17h1v1h-1zM28 17h2v1h-2zM5 18h1v1h-1zM10 18h1v1h-1zM12 18h2v1h-2zM15 18h1v1h-1zM17 18h1v1h-1zM22 18h2v1h-2zM26 18h2v1h-2zM29 18h1v1h-1zM1 19h1v1h-1zM3 19h1v1h-1zM7 19h1v1h-1zM9 19h2v1h-2zM12 19h1v1h-1zM14 19h1v1h-1zM18 19h1v1h-1zM22 19h1v1h-1zM24 19h2v1h-2zM28 19h2v1h-2zM2 20h2v1h-2zM6 20h1v1h-1zM8 20h1v1h-1zM10 20h2v1h-2zM13 20h1v1h-1zM17 20h10v1h-10zM28 20h1v1h-1zM1 21h1v1h-1zM5 21h1v1h-1zM7 21h1v1h-1zM10 21h3v1h-3zM17 21h9v1h-9zM9 22h2v1h-2zM12 22h3v1h-3zM17 22h1v1h-1zM20 22h2v1h-2zM25 22h1v1h-1zM27 22h3v1h-3zM1 23h7v1h-7zM10 23h1v1h-1zM12 23h1v1h-1zM15 23h1v1h-1zM17 23h2v1h-2zM20 23h2v1h-2zM23 23h1v1h-1zM25 23h2v1h-2zM28 23h2v1h-2zM1 24h1v1h-1zM7 24h1v1h-1zM10 24h6v1h-6zM17 24h3v1h-3zM21 24h1v1h-1zM25 24h2v1h-2zM28 24h1v1h-1zM1 25h1v1h-1zM3 25h3v1h-3zM7 25h1v1h-1zM9 25h1v1h-1zM11 25h1v1h-1zM15 25h4v1h-4zM21 25h5v1h-5zM28 25h2v1h-2zM1 26h1v1h-1zM3 26h3v1h-3zM7 26h1v1h-1zM10 26h1v1h-1zM13 26h3v1h-3zM17 26h2v1h-2zM21 26h1v1h-1zM24 26h2v1h-2zM27 26h3v1h-3zM1 27h1v1h-1zM3 27h3v1h-3zM7 27h1v1h-1zM9 27h2v1h-2zM18 27h1v1h-1zM20 27h1v1h-1zM24 27h3v1h-3zM29 27h1v1h-1zM1 28h1v1h-1zM7 28h1v1h-1zM10 28h1v1h-1zM15 28h2v1h-2zM18 28h1v1h-1zM20 28h3v1h-3zM25 28h1v1h-1zM28 28h1v1h-1zM1 29h7v1h-7zM9 29h1v1h-1zM11 29h1v1h-1zM14 29h5v1h-5zM20 29h3v1h-3zM24 29h2v1h-2zM28 29h2v1h-2z"/>
+<text x="1548" y="2153" class="scan" text-anchor="middle">Scan for the repo</text>
+<rect x="120" y="2241" width="1560" height="1" fill="rgba(255,255,255,0.16)"/>
+<text x="120" y="2306" class="livel">LIVE</text>
+<text x="199.49" y="2307" class="live">Capital One Nessie</text>
+<text x="446.18" y="2307" class="live">Google Gemini</text>
+<text x="646.14" y="2307" class="live">Photon iMessage</text>
+<text x="874.09" y="2307" class="live">SEC</text>
+<text x="960.14" y="2307" class="live">FDIC</text>
+<text x="1053.72" y="2307" class="live">CFPB</text>
+<text x="1154.26" y="2307" class="live">Treasury</text>
+<text x="120" y="2353" class="sim">Money settlement is simulated on a ledger over live Nessie reads. No real money moves.</text>
+<text x="1680" y="2307" class="auth" text-anchor="end">Kuiyi Gao</text>
+<text x="1680" y="2353" class="repo" text-anchor="end">github.com/KuiyiGao/finguard</text>
+</svg>

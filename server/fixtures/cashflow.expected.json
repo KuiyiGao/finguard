@@ -1,0 +1,23 @@
+{
+  "conventions": "USD; exact decimal amounts; no future income; recorded bills plus user buffer",
+  "cases": [
+    {
+      "amount": 500.0,
+      "balanceAfter": 700.0,
+      "availableToMove": 150.0,
+      "shortfallAfter": 350.0
+    },
+    {
+      "amount": 150.0,
+      "balanceAfter": 1050.0,
+      "availableToMove": 150.0,
+      "shortfallAfter": 0.0
+    },
+    {
+      "amount": 150.01,
+      "balanceAfter": 1049.99,
+      "availableToMove": 150.0,
+      "shortfallAfter": 0.01
+    }
+  ]
+}

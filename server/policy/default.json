@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "grants": [
+    {
+      "capability": "bank.read",
+      "approval": "never"
+    },
+    {
+      "capability": "transfers.own",
+      "maxAmount": 500,
+      "approval": "over_limit"
+    },
+    {
+      "capability": "bills.pay",
+      "maxAmount": 1000,
+      "approval": "always"
+    },
+    {
+      "capability": "transfers.external",
+      "maxAmount": 1000,
+      "approval": "always"
+    },
+    {
+      "capability": "subscriptions.manage",
+      "approval": "always"
+    },
+    {
+      "capability": "research.read",
+      "approval": "never"
+    }
+  ],
+  "ownAccounts": [
+    "acct-checking",
+    "acct-savings"
+  ],
+  "savedPayees": [
+    {
+      "id": "payee-duke",
+      "name": "Duke Energy",
+      "account": "3301",
+      "addedAt": "2026-03-02T15:00:00.000Z"
+    },
+    {
+      "id": "payee-maple",
+      "name": "Maple Court Apartments",
+      "account": "5520",
+      "addedAt": "2025-08-01T15:00:00.000Z"
+    },
+    {
+      "id": "payee-sam",
+      "name": "Sam Rivera",
+      "account": "7781",
+      "addedAt": "2026-01-15T15:00:00.000Z"
+    }
+  ],
+  "newPayeeCoolingOffMinutes": 1440,
+  "dailyLimit": 2500,
+  "cashFlowBuffer": 500,
+  "trustedContact": {
+    "name": "Jordan (son)",
+    "handle": "+1 555 0142"
+  },
+  "paused": false
+}

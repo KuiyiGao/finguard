@@ -1,0 +1,7 @@
+{
+  "id": "message-dinner-split",
+  "sender": "fictional:friend-jamie",
+  "channel": "imessage",
+  "text": "[FICTIONAL DEMO MESSAGE] Hey Alex, dinner was fun! I covered the $48 total for the two of us, so your half is $24. The receipt is in our dinner chat. Could you settle up through our usual method when you have a chance? Happy to talk through the split.",
+  "expectedRisk": "low"
+}

@@ -1,0 +1,42 @@
+{
+  "ranAt": "2026-10-11T00:46:41.183Z",
+  "sessions": 5,
+  "turns": 34,
+  "passed": 5,
+  "failed": 0,
+  "failures": [],
+  "latencyMs": {
+    "p50": 6.55,
+    "p95": 28.36,
+    "max": 31.6
+  },
+  "throughputTurnsPerSec": 346.35,
+  "byPersona": {
+    "maya": {
+      "passed": 1,
+      "total": 1
+    },
+    "grace": {
+      "passed": 1,
+      "total": 1
+    },
+    "diego-ana": {
+      "passed": 1,
+      "total": 1
+    },
+    "sam": {
+      "passed": 1,
+      "total": 1
+    },
+    "priya": {
+      "passed": 1,
+      "total": 1
+    }
+  },
+  "checks": {
+    "passed": 39,
+    "total": 39
+  },
+  "repeat": 1,
+  "wallMs": 98.17
+}

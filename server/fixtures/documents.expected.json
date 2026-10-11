@@ -1,0 +1,22 @@
+{
+  "conventions": "T46 independent reference: USD cents, Decimal arithmetic, UTC calendar dates.\nAnnual fees mean twelve repetitions of this statement, not a prediction.\nInputs are read from the fictional fixture text; no production parser is imported.\n",
+  "asOf": "2026-10-10",
+  "sha256": {
+    "cloudgym-contract.txt": "a11e72e985b8cc650896fd0dbf5abd0aedda3b1e240a8974a39a47722f0eda1e",
+    "october-statement.txt": "519f3a6b6170829221495b04046564049dfc01c0f60b31bf2feb8e13b0351625",
+    "ridgeline-invoice.txt": "0c15b219d3b2e9be2300831463cff566e386de439a259f3dd4c739789306ad5b"
+  },
+  "statement": {
+    "feesTotal": 52.0,
+    "feesPerYear": 624.0,
+    "endingBalance": 4210.55
+  },
+  "contract": {
+    "renewalCost": 408.88
+  },
+  "invoice": {
+    "itemsTotal": 865.0,
+    "termsDays": 7,
+    "daysUntilDue": 5
+  }
+}
