@@ -55,4 +55,4 @@ Open http://localhost:8788/ and press **Next** to walk through the demo.
 
 ## Author
 
-Kuiyi Gao ([@KuiyiGao](https://github.com/KuiyiGao)), HackNC 2026.
+Kuiyi Gao ([@KuiyiGao](https://github.com/KuiyiGao)), Lucia Zhang and Junze Dong, HackNC 2026.
